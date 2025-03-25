@@ -1,0 +1,42 @@
+<div class="signup-form">
+  <form [formGroup]="signUpForm" (ngSubmit)="signUp()">
+    <h2>{{ labels.signupFormTitle }}</h2>
+    <div class="signup-form-input">
+      <label for="username" class="form-label">{{ labels.usernameLabel }}</label>
+      <input id="username" class="form-control" formControlName="username" />
+      <div
+        *ngIf="signUpForm.get('username')?.invalid && (signUpForm.get('username')?.dirty || signUpForm.get('username')?.touched)"
+        class="text-danger">
+        <small *ngIf="signUpForm.get('username')?.errors?.['required']">{{ usernameRequiredMessage }}</small>
+        <small *ngIf="signUpForm.get('username')?.errors?.['minlength']">{{ usernameLengthErrorMessage }}</small>
+        <small *ngIf="signUpForm.get('username')?.errors?.['maxlength']">{{ usernameLengthErrorMessage }}</small>
+      </div>
+    </div>
+
+    <div class="signup-form-input">
+      <label for="password" class="form-label">{{ labels.passwordLabel }}</label>
+      <input id="password" type="password" class="form-control" formControlName="password" />
+      <div
+        *ngIf="signUpForm.get('password')?.invalid && (signUpForm.get('password')?.dirty || signUpForm.get('password')?.touched)"
+        class="text-danger">
+        <small *ngIf="signUpForm.get('password')?.errors?.['required']">{{ passwordRequiredMessage }}</small>
+        <small *ngIf="signUpForm.get('password')?.errors?.['minlength']">{{ passwordLengthErrorMessage }}</small>
+        <small *ngIf="signUpForm.get('password')?.errors?.['maxlength']">{{ passwordLengthErrorMessage }}</small>
+      </div>
+    </div>
+
+    <div class="signup-form-input">
+      <label for="confirmPassword" class="form-label">{{ labels.confirmPasswordLabel }}</label>
+      <input id="confirmPassword" type="password" class="form-control" formControlName="confirmPassword" />
+      <div
+        *ngIf="signUpForm.errors?.['passwordsMismatch'] && (signUpForm.get('confirmPassword')?.dirty || signUpForm.get('confirmPassword')?.touched)"
+        class="text-danger">
+        <small>{{ passwordsMismatchErrorMessage }}</small>
+      </div>
+    </div>
+    <div class="signup-form-footer">
+      <button type="submit" class="signup-button" [disabled]="signUpForm.invalid" [class.valid]="signUpForm.valid"
+        [class.invalid]="signUpForm.invalid">{{ labels.signupSubmitButton }}</button>
+    </div>
+  </form>
+</div>

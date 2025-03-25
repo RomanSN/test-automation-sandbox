@@ -1,0 +1,15 @@
+html {
+    margin: 0px;
+    height: 100%;
+    width: 100%;
+ }
+ 
+ body {
+    background-color: hsla(187, 34%, 62%, 0.397);
+    margin: 0px;
+    min-height: 100%;
+    width: 100%;
+ }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

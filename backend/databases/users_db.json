@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1742427101411,
+    "username": "New user",
+    "hash": "$2a$10$BhYJVIvPIyLQ3pJfxDZQ6e57oou0nwFuu2mYJODUveFNuzS8Um.Ru",
+    "fingerprint": "8f54938395f07d2d9f2b31d264057ad3"
+  },
+  {
+    "id": 1742933656574,
+    "username": "Admin",
+    "hash": "$2a$10$.FnxmPcjCYt5H5EQMh97tuErhvDfo.fJ8zUQ5nOPX8oGBTTHfRK52",
+    "fingerprint": "8f54938395f07d2d9f2b31d264057ad3"
+  },
+  {
+    "id": 1742933800582,
+    "username": "Jon Smith",
+    "hash": "$2a$10$3hEluW42KCfmtuwBYdEsP.9gowcKG0tMHSctYEZAYdLtE2N.5Fcuu",
+    "fingerprint": "8f54938395f07d2d9f2b31d264057ad3"
+  }
+]

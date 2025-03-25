@@ -1,0 +1,29 @@
+<div class="login-form">
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <h2>{{ labels.loginFormTitle }}</h2>
+        <div class="login-form-input">
+            <label for="username" class="form-label">{{ labels.usernameLabel }}</label>
+            <input id="username" class="form-control" formControlName="username" />
+            <div *ngIf="loginForm.get('username')?.invalid && (loginForm.get('username')?.dirty || loginForm.get('username')?.touched)"
+                class="text-danger">
+                <small *ngIf="loginForm.get('username')?.errors?.['required']">{{ usernameRequiredMessage }}</small>
+                <small *ngIf="loginForm.get('username')?.errors?.['minlength']">{{ minUsernameLengthErrorMessage }}</small>
+            </div>
+        </div>
+
+        <div class="login-form-input">
+            <label for="password" class="form-label">{{ labels.passwordLabel }}</label>
+            <input id="password" type="password" class="form-control" formControlName="password" />
+            <div *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)"
+                class="text-danger">
+                <small *ngIf="loginForm.get('password')?.errors?.['required']">{{ passwordRequiredMessage }}</small>
+                <small *ngIf="loginForm.get('password')?.errors?.['minlength']">{{ minPaswordLengthErrorMessage }}</small>
+            </div>
+        </div>
+
+        <div class="login-form-footer">
+            <button type="submit" class="login-button" [disabled]="loginForm.invalid" [class.valid]="loginForm.valid"
+              [class.invalid]="loginForm.invalid">{{ labels.loginSubmitButton }}</button>
+          </div>
+    </form>
+</div>

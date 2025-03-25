@@ -1,0 +1,52 @@
+<!-- Modal Wrapper -->
+<div class="modal-overlay">
+    <div class="modal-content">
+      <h2>{{ labels.title }}</h2>
+  
+      <!-- Form -->
+      <form [formGroup]="articleForm" (ngSubmit)="handleSubmitArticle()">
+        <!-- Title -->
+        <div class="article-form-input">
+            <label for="title">{{ labels.titleLabel }}</label>
+            <input id="title" formControlName="title" (input)="handleTitleInput()" placeholder="Enter title..." />
+            <div class="error-message-container">
+                <p class="error" *ngIf="title?.invalid && title?.touched">{{ minTitleLengthMessage }}</p>
+                <div class="tooltip" *ngIf="titleTooltip">{{ maxTitleLengthMessage }}</div>
+            </div>
+        </div>
+  
+        <!-- Content -->
+        <div class="article-form-input">
+            <label for="content">{{ labels.contentLabel }}</label>
+            <textarea id="content" formControlName="content" (input)="handleContentInput()" placeholder="Enter content..." style="min-height: 200px;"></textarea>
+            <div class="error-message-container">
+                <p class="error" *ngIf="content?.invalid && content?.touched">{{ minContentLengthMessage }}</p>
+                <div class="tooltip" *ngIf="contentTooltip">{{ maxContentLengthMessage }}</div>
+            </div>
+        </div>
+ 
+        <!-- Author (Autofilled) -->
+        <div class="article-form-input">
+            <label for="author">{{ labels.authorLabel }}</label>
+            <input id="author" formControlName="author"/>
+        </div>
+        <!-- Footer Buttons -->
+        <div class="modal-footer">
+          <button type="button" (click)="attemptClose()">{{ labels.cancelButton }}</button>
+          <button type="submit" [disabled]="articleForm.invalid">{{ labels.submitButton }}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <!-- Confirmation Dialog -->
+  <div class="confirm-overlay" *ngIf="showCancelDialog">
+    <div class="confirm-dialog">
+      <p>{{ labels.closeConfirmationMessage }}</p>
+      <div class="confirm-buttons">
+        <button (click)="confirmClose()">{{ labels.closeButton }}</button>
+        <button (click)="showCancelDialog = false">{{ labels.cancelButton }}</button>
+      </div>
+    </div>
+  </div>
+  

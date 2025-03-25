@@ -1,0 +1,17 @@
+<header class="header">
+  <div class="logo header-block">{{ labels.appName }}</div>
+  <div class="header-block user-greeting">
+    <span *ngIf="isLoggedIn">Hello, {{ username }}</span>
+  </div>
+  <div  class="header-buttons header-block">
+    <button [routerLink]="['/home']" [routerLinkActive]="['active']">{{ labels.homeButtonLabel }}</button>
+    <button [routerLink]="['/articles']" [routerLinkActive]="['active']">{{ labels.articlesButtonLabel }}</button>
+    <button *ngIf="!isLoggedIn" [routerLink]="['/login']" [routerLinkActive]="['active']">{{ labels.loginButtonLabel }}</button>
+    <button *ngIf="!isLoggedIn" [routerLink]="['/signup']" [routerLinkActive]="['active']">{{ labels.signupinButtonLabel }}</button>
+    <button *ngIf="isLoggedIn" (click)="logOut()">{{ labels.logoutButtonLabel }}</button>
+  </div>
+</header>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,143 @@
+.article-page-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.articles-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.sort-buttons button {
+  margin-left: 10px;
+  padding: 8px 16px;
+  border-radius: 3px;
+  border-width: 1px;
+  cursor: pointer;
+}
+
+.articles-list {
+  width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.article-item {
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.article-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.article-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.article-content {
+  margin-bottom: 10px;
+  border: 1px solid #eee;
+  padding: 10px;
+  background-color: #f9f9f9;
+}
+
+.article-footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.article-footer button {
+  margin-right: 10px;
+  padding: 8px 16px;
+  border-radius: 3px;
+  border-width: 1px;
+  cursor: pointer;
+}
+
+.article-futer-buttons {
+  display: flex;
+}
+
+.article-date {
+  font-size: 15px;
+  color: gray;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background-color: #ffff;
+}
+
+.search-container input {
+  border-radius: 3px;
+  border: none;
+  outline: none;
+  padding: 10px;
+  width: 300px;
+}
+
+.clear-btn {
+  padding-bottom: 1px;
+  display: flex;
+  text-align: center;
+  cursor: pointer;
+  font-size: 20px;
+  color: gray;
+  width: 30px;
+}
+
+.clear-btn button{
+  border: none;
+  background: none;
+  margin-right: 5px;
+}
+
+.no-results {
+  text-align: center;
+  font-size: 18px;
+  color: red;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+mat-paginator {
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
