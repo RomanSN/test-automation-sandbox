@@ -1,5 +1,5 @@
 export const environment = {
     production: true,
-    apiUrl: 'http://your.domain.com/api',
+    apiUrl: 'https://tas-prod.up.railway.app',
     debugMode: false
   };
