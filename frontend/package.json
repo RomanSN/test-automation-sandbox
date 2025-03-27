@@ -4,7 +4,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start-prod": "node server.js",
     "build": "ng build",
+    "build-prod": "ng build --configuration=production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint"
@@ -23,6 +25,7 @@
     "@angular/router": "^19.1.0",
     "@fingerprintjs/fingerprintjs": "^4.6.0",
     "axios": "^1.7.9",
+    "express": "^4.21.2",
     "profanities": "^3.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
