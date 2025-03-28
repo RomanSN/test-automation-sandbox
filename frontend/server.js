@@ -4,11 +4,11 @@ const path = require("path");
 const app = express();
 
 // Serve the Angular built files
-app.use(express.static(path.join(__dirname, "dist/frontend"))); 
+app.use(express.static(path.join(__dirname, "dist/frontend/browser"))); 
 
 // Redirect all other routes to index.html (Angular handles routing)
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "dist/frontend", "index.html"));
+  res.sendFile(path.join(__dirname, "dist/frontend/browser", "index.html"));
 });
 
 // Define port
