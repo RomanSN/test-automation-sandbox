@@ -37,7 +37,7 @@ export class AppComponent implements OnInit {
       }
     });
     this.checkUserTokenExpiration();
-    this.setTokenExpirationValidation();
+    //this.setTokenExpirationValidation();
   }
 
   checkUserTokenExpiration() {

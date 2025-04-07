@@ -37,11 +37,9 @@
 
 .container {
   display: flex;
-  margin: 50px auto auto;
-  padding: 20px;
   align-items: center;
   justify-content: center;
-  position: relative;
+
 }
 
 .user-greeting {

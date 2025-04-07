@@ -1,77 +1,84 @@
-<div class="article-page-title">
-    <h1>{{ texts.articlePageTitle }}</h1>
-</div>
-<div class="articles-header">
-    <div class="search-container">
-        <input type="text" [formControl]="searchControl" [placeholder]="searchPlaceholder" />
-        <div class="clear-btn">
-            <button *ngIf="searchQuery.length > 0" (click)="clearSearch()" (keydown.space)="clearSearch()">✖</button>
-        </div>
+<div class="article-list-container">
+    <div class="article-page-title">
+        <h1>{{ texts.articlePageTitle }}</h1>
     </div>
-    <div class="sort-buttons">
-        <button (click)="toggleSort('author')">
-            {{ buttons.sortByAuthor }}
-            <span *ngIf="sortState.author === 'asc'">↑</span>
-            <span *ngIf="sortState.author === 'desc'">↓</span>
-        </button>
-        <button (click)="toggleSort('title')">
-            {{ buttons.sortByTitle }}
-            <span *ngIf="sortState.title === 'asc'">↑</span>
-            <span *ngIf="sortState.title === 'desc'">↓</span>
-        </button>
-        <button (click)="attemptToAddArticle()">
-            {{ buttons.addArticle }}
-        </button>
-    </div>
-</div>
-
-<div class="articles-list">
-    <div class="article-item" *ngFor="let article of paginatedArticles">
-        <div class="article-header">
-            <h3 class="article-title">{{ article.title }}</h3>
-            <span class="article-author">Author: {{ article.author }}</span>
-        </div>
-        <div class="article-content">
-            <p>{{ article.content }}</p>
-        </div>
-        <div class="article-footer">
-            <div class="article-futer-buttons">
-                <button *ngIf="canEditArticle(article)" (click)="editArticle(article)">{{ buttons.edit }}</button>
-                <button *ngIf="canEditArticle(article)" (click)="attemptToDeleteArticle(article)">{{ buttons.delete }}</button>
+    <div class="articles-header">
+        <div class="search-container">
+            <input type="text" [formControl]="searchControl" [placeholder]="searchPlaceholder" />
+            <div class="clear-btn">
+                <button *ngIf="searchQuery.length > 0" (click)="clearSearch()"
+                    (keydown.space)="clearSearch()">✖</button>
             </div>
-            <span class="article-date">Created: {{ article.dateCreated | date:'dd/MM/yyyy'}}</span>
+        </div>
+        <div class="articles-action-buttons">
+            <button [class.active]="myArticlesOnly" *ngIf="isLoggedIn" (click)="toggleMyArticles()">
+                {{ buttons.myArticles }}
+            </button>
+            <button [class.active]="sortState.author !== 'default'" [disabled]="myArticlesOnly"
+                (click)="toggleSort('author')">
+                {{ buttons.sortByAuthor }}
+                <span class="arrow" [class.visible]="sortState.author === 'asc'">↑</span>
+                <span class="arrow" [class.visible]="sortState.author === 'desc'">↓</span>
+            </button>
+            <button [class.active]="sortState.title !== 'default'" [disabled]="myArticlesOnly"
+                (click)="toggleSort('title')">
+                {{ buttons.sortByTitle }}
+                <span class="arrow" [class.visible]="sortState.title === 'asc'">↑</span>
+                <span class="arrow" [class.visible]="sortState.title === 'desc'">↓</span>
+            </button>
+            <button class="add-article" [class.active]="isLoggedIn" (click)="attemptToAddArticle()">
+                {{ buttons.addArticle }}
+            </button>
         </div>
     </div>
-</div>
 
-
-<!-- Pagination Controls -->
-<mat-paginator [length]="articles.length" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]"
-    (page)="onPageChange($event)" aria-label="Select page">
-</mat-paginator>
-
-
-<div *ngIf="showLoginRequiredDialog" class="modal-overlay">
-    <div class="modal">
-        <p>{{ texts.logInRequiredMessage }}</p>
-        <div class="modal-buttons">
-            <button (click)="navigateToLogin()">{{ buttons.login }}</button>
-            <button (click)="closeLoginRequiredDialog()">{{ buttons.cancel }}</button>
+    <div class="articles-list">
+        <div class="article-item" *ngFor="let article of paginatedArticles">
+            <div class="article-header">
+                <h3 class="article-title">{{ article.title }}</h3>
+                <span class="article-author">Author: {{ article.author }}</span>
+            </div>
+            <div class="article-content">
+                <p>{{ article.content }}</p>
+            </div>
+            <div class="article-footer">
+                <div class="article-futer-buttons">
+                    <button *ngIf="canEditArticle(article)" (click)="editArticle(article)">{{ buttons.edit }}</button>
+                    <button class="delete-article" *ngIf="canEditArticle(article)"
+                        (click)="attemptToDeleteArticle(article)">{{ buttons.delete }}</button>
+                </div>
+                <span class="article-date">Created: {{ article.dateCreated | date:'dd/MM/yyyy'}}</span>
+            </div>
         </div>
     </div>
-</div>
 
-<div *ngIf="showConfirmDeleteArticleDialog" class="modal-overlay">
-    <div class="modal">
-        <p>{{ texts.deleteConfirmationMessage }}</p>
-        <div class="modal-buttons">
-            <button (click)="deleteArticle()">{{ buttons.delete }}</button>
-            <button (click)="cancelArticleDeletion()">{{ buttons.cancel }}</button>
+    <div *ngIf="showLoginRequiredDialog" class="modal-overlay">
+        <div class="modal">
+            <p>{{ texts.logInRequiredMessage }}</p>
+            <div class="modal-buttons">
+                <button (click)="navigateToLogin()">{{ buttons.login }}</button>
+                <button (click)="closeLoginRequiredDialog()">{{ buttons.cancel }}</button>
+            </div>
         </div>
     </div>
+
+    <div *ngIf="showConfirmDeleteArticleDialog" class="modal-overlay">
+        <div class="modal">
+            <p>{{ texts.deleteConfirmationMessage }}</p>
+            <div class="modal-buttons">
+                <button (click)="deleteArticle()">{{ buttons.delete }}</button>
+                <button (click)="cancelArticleDeletion()">{{ buttons.cancel }}</button>
+            </div>
+        </div>
+    </div>
+
+    <app-article-form *ngIf="showArticleModal" [selectedArticle]="selectedArticle"
+        (closeModal)="closeArticleModal()"></app-article-form>
+
+    <h1 *ngIf="articles.length === 0" class="no-articles">{{ texts.noArticleFound }}</h1>
+
+    <!-- Pagination Controls -->
+    <mat-paginator [length]="articles.length" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]"
+        (page)="onPageChange($event)" aria-label="Select page">
+    </mat-paginator>
 </div>
-
-<app-article-form *ngIf="showArticleModal" [selectedArticle]="selectedArticle"
-    (closeModal)="closeArticleModal()"></app-article-form>
-
-<h1 class="no-results" *ngIf="articles.length === 0" class="no-articles">{{ texts.noArticleFound }}</h1>

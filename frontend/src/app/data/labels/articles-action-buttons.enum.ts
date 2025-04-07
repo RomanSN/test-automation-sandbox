@@ -6,5 +6,6 @@ export enum ARTICLES_ACTION_BUTTONS {
     sortByAuthor = 'Sort by Author',
     sortByTitle = 'Sort by Title',
     addArticle = 'Add article',
+    myArticles = 'My articles',
 }
 

@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ArticleService } from '../../services/article.service';
-import { Article, SortDirection, SortState, SortType } from '../../../../typing';
+import {
+  Article,
+  SortDirection,
+  SortState,
+  SortType,
+} from '../../../../typing';
 import { FormControl } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
@@ -23,10 +28,12 @@ export class ArticleListComponent implements OnInit {
   texts = ARTICLES_PAGE_TEXTS;
   buttons = ARTICLES_ACTION_BUTTONS;
   // action properties
+  myArticlesOnly = false;
   showArticleModal = false;
   showLoginRequiredDialog = false;
   showConfirmDeleteArticleDialog = false;
   isLoggedIn = false;
+  currentUser = '';
   selectedArticle!: Article | null;
   articles: Article[] = [];
   originalArticles: Article[] = []; // Preserve original order
@@ -50,7 +57,12 @@ export class ArticleListComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     await this.articleService.getArticles();
-    this.authService.isLoggedIn.subscribe((state) => (this.isLoggedIn = state));
+    this.authService.isLoggedIn.subscribe((state) => {
+      this.isLoggedIn = state;
+      if(this.isLoggedIn) {
+        this.currentUser = this.authService.getCurrentUser()!;
+      }
+    });
     this.subscribeOnArticles();
     this.searchControl.valueChanges.subscribe((value) => {
       this.searchQuery = value || ''; // Handle `null` values
@@ -60,7 +72,9 @@ export class ArticleListComponent implements OnInit {
 
   subscribeOnArticles(): void {
     this.articleService.articles.subscribe((data) => {
-      this.articles = data;
+      this.articles = this.myArticlesOnly
+        ? data.filter((article) => article.author === this.currentUser)
+        : data;
       this.originalArticles = [...data];
       this.loadSortState(); // Load persisted sort state and apply it
       this.updatePaginatedArticles();
@@ -90,10 +104,9 @@ export class ArticleListComponent implements OnInit {
     this.selectedArticle = null;
   }
 
-  // Edit article
+  // edit article
   canEditArticle(article: Article): boolean {
-    const user = this.isLoggedIn ? this.authService.getCurrentUser() : '';
-    return article.author === user;
+    return article.author === this.currentUser;
   }
 
   editArticle(article: Article): void {
@@ -116,12 +129,33 @@ export class ArticleListComponent implements OnInit {
     this.showConfirmDeleteArticleDialog = false;
     try {
       await this.articleService.deleteArticle(this.selectedArticle!.id);
-      alert(`Article "${this.selectedArticle!.title}" has been successfully deleted.`);
+      alert(
+        `Article "${
+          this.selectedArticle!.title
+        }" has been successfully deleted.`
+      );
     } catch (error: any) {
       const message = getErrorMessage(error);
       alert(`Article deletion failed with error: ${message}`);
     }
     this.selectedArticle = null;
+  }
+
+  toggleMyArticles() {
+    if (this.myArticlesOnly) {
+      this.articles = this.originalArticles;
+      this.updatePaginatedArticles();
+      this.myArticlesOnly = !this.myArticlesOnly;
+    } else {
+      const filteredArticles = this.articles.filter(
+        (article) => article.author === this.currentUser
+      );
+      this.articles = filteredArticles;
+      this.updatePaginatedArticles();
+      this.myArticlesOnly = !this.myArticlesOnly;
+      this.sortState.author = 'default';
+      this.sortState.title = 'default';
+    }
   }
 
   onSearch(): void {
@@ -131,7 +165,8 @@ export class ArticleListComponent implements OnInit {
       this.articles = [...this.originalArticles];
       this.loadSortState();
     } else if (this.searchQuery.length < 3) {
-      this.searchPlaceholder = ARTICLES_PAGE_TEXTS.typeMinSignsNumberPlaceholder;
+      this.searchPlaceholder =
+        ARTICLES_PAGE_TEXTS.typeMinSignsNumberPlaceholder;
       this.articles = [...this.originalArticles];
       this.loadSortState();
     } else {
@@ -176,10 +211,7 @@ export class ArticleListComponent implements OnInit {
     this.sortArticles(field, order);
   }
 
-  private sortArticles(
-    field: SortType,
-    order: SortDirection
-  ): void {
+  private sortArticles(field: SortType, order: SortDirection): void {
     if (order === 'asc') {
       this.articles.sort((a, b) =>
         articlesHelper.compareValues(a[field], b[field], 'asc')
