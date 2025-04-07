@@ -31,7 +31,7 @@
 }
 
 .articles-action-buttons button.active {
-  background: rgb(220, 220, 220);
+  background: rgb(201, 201, 201);
 }
 
 button.add-article.active {
@@ -68,7 +68,7 @@ button.delete-article {
   border: 1px solid #ccc;
   padding: 15px;
   border-radius: 5px;
-  background-color: hsla(187, 51%, 86%, 0.397);
+  background-color: hsla(191, 59%, 84%, 0.397);
 }
 
 .article-header {
