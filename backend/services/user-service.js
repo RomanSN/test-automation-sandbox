@@ -1,12 +1,9 @@
-import { readFileSync, existsSync, writeFileSync } from "fs";
-import { resolve } from "path";
-import { getInvalidUserRequestMessage } from "../utils/user-helper.js"
+import { getInvalidUserRequestMessage } from "../utils/user-helper.js";
+import { userModel } from "../data/models/user.model.js";
 
 const jwt = await import("jsonwebtoken");
 const bcrypt = await import("bcryptjs");
 const SECRET_KEY = "supersecretkey";
-const usersdbFile = resolve("./databases/users_db.json");
-const loadUsersDb = () => JSON.parse(readFileSync(usersdbFile, "utf8"));
 
 export async function loginUser(req, res) {
   const { username, password } = req.body;
@@ -14,8 +11,7 @@ export async function loginUser(req, res) {
   if (invalidRequestMessage) {
     return res.status(400).json({ message: invalidRequestMessage });
   }
-  const users = loadUsersDb();
-  const user = users.find((u) => u.username === username);
+  const user = await userModel.findOne({ username: username });
   if (!user) return res.status(400).json({ message: "User not found" });
 
   bcrypt.default.compare(password, user.hash, (err, result) => {
@@ -30,41 +26,37 @@ export async function loginUser(req, res) {
   });
 }
 
-export function registerUser(req, res) {
+export async function registerUser(req, res) {
   const { username, password, fingerprint } = req.body;
   const invalidRequestMessage = getInvalidUserRequestMessage(req, true);
   if (invalidRequestMessage) {
     return res.status(400).json({ message: invalidRequestMessage });
   }
-
   // Load existing users
-  let users = [];
-  if (existsSync(usersdbFile)) {
-    users = JSON.parse(readFileSync(usersdbFile, "utf8"));
-  }
-
+  const users = await userModel.find();
   // Check if the username already exists
   let existingUser = users.find((user) => user.username === username);
   if (existingUser) {
     return res.status(409).json({ message: "Username already exists." });
   }
   existingUser = users.filter((user) => user.fingerprint === fingerprint);
-  if (existingUser.length >= 3) {
+  if (existingUser.length >= 5) {
     return res.status(409).json({
       message:
         "You have reached the limit of registering accounts from one device, account limit = 3",
     });
   }
 
-  // Add the new user to the users array
   const hash = bcrypt.default.hashSync(password);
   const newUser = { id: Date.now(), username, hash, fingerprint };
-  users.push(newUser);
-
-  // Save updated users array to users.json
-  writeFileSync(usersdbFile, JSON.stringify(users, null, 2));
-
-  res
-    .status(201)
-    .json({ message: `User "${username}" registered successfully!` });
+  userModel
+    .create(newUser)
+    .then(() => {
+      res
+        .status(201)
+        .json({ message: `User "${username}" registered successfully!` });
+    })
+    .catch((err) => {
+      res.json(503).json({ message: `Error registering user ${err}` });
+    });
 }

@@ -2,11 +2,15 @@ import { loginUser, registerUser } from "./services/user-service.js";
 import { getArticles, addArticle, deleteArticle, editArticle } from "./services/article-service.js";
 import express, { json } from "express";
 import cors from "cors";
+import dotenv from 'dotenv';
+import { connectDB } from "./services/db-connection-service.js";
 const jwt = await import("jsonwebtoken");
 const app = express();
 const PORT = 3000;
 const SECRET_KEY = "supersecretkey";
 
+dotenv.config({ path: './data/.env' });
+await connectDB();
 app.use(cors());
 app.use(json());
 

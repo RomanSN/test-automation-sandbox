@@ -1,16 +1,13 @@
-import { readFileSync, writeFileSync } from "fs";
-import { resolve } from "path";
 import {
   getInvalidArticleRequestMessage,
   ammountArticlesCreatedByAuthor,
   containsBadWords,
 } from "../utils/articles-helper.js";
+import { articleModel } from "../data/models/article.model.js";
 
-const articlesdbFile = resolve("./databases/articles_db.json");
-const loadArticlesDb = () => JSON.parse(readFileSync(articlesdbFile, "utf8"));
-
-export function getArticles(req, res) {
-  res.json(loadArticlesDb());
+export async function getArticles(req, res) {
+  const articles = await articleModel.find().sort({ dateCreated: -1 });
+  res.json(articles);
 }
 
 export async function addArticle(req, res) {
@@ -19,7 +16,7 @@ export async function addArticle(req, res) {
   const violatingTitle = await containsBadWords(title);
   const violatingWords = violatingContent.concat(violatingTitle);
   const invalidRequestMessage = getInvalidArticleRequestMessage(req, false);
-  const articles = loadArticlesDb();
+  const articles = await articleModel.find();
   if (invalidRequestMessage) {
     return res.status(400).json({ message: invalidRequestMessage });
   }
@@ -38,29 +35,41 @@ export async function addArticle(req, res) {
   const timeStamp = Date.now();
   const articleId = timeStamp.toString().slice(5);
   const newArticle = { id: +articleId, ...req.body, dateCreated: timeStamp };
-  articles.unshift(newArticle);
-  writeFileSync(articlesdbFile, JSON.stringify(articles, null, 2));
-  res.json(newArticle);
+  articleModel
+    .create(newArticle)
+    .then(() => {
+      res.json(newArticle);
+    })
+    .catch((err) => {
+      res.json(503).json({ message: `Error creating article ${err}` });
+    });
 }
 
-export function deleteArticle(req, res) {
-  const articles = loadArticlesDb();
-  const modifiedArticles = articles.filter(
-    (article) => article.id != req.params.id
-  );
-  writeFileSync(articlesdbFile, JSON.stringify(modifiedArticles, null, 2));
-  res.json({ message: "Article deleted" });
+export async function deleteArticle(req, res) {
+  articleModel
+    .findOneAndDelete({ id: req.params.id })
+    .then(() => {
+      res.json({ message: "Article successfully deleted" });
+    })
+    .catch((err) => {
+      res.json(503).json({ message: `Error deleting article ${err}` });
+    });
 }
 
-export function editArticle(req, res) {
+export async function editArticle(req, res) {
   const invalidRequestMessage = getInvalidArticleRequestMessage(req, true);
-  const articles = loadArticlesDb();
   if (invalidRequestMessage) {
     return res.status(400).json({ message: invalidRequestMessage });
   }
-  const modifiedArticles = articles.map((article) =>
-    article.id == req.params.id ? { ...article, ...req.body } : article
-  );
-  writeFileSync(articlesdbFile, JSON.stringify(modifiedArticles, null, 2));
-  res.json({ message: "Article updated" });
+  articleModel
+    .updateOne(
+      { id: req.params.id },
+      { $set: { title: req.body.title, content: req.body.content } }
+    )
+    .then(() => {
+      res.json({ message: "Article successfully updated" });
+    })
+    .catch((err) => {
+      res.json(503).json({ message: `Error updating article ${err}` });
+    });
 }
