@@ -20,7 +20,7 @@ app.post("/api/signup", registerUser);
 
 // **🚀 Articles API**
 app.get("/api/articles", getArticles);
-app.post("/api/articles", verifyToken, addArticle);
+app.post("/api/articles/add", verifyToken, addArticle);
 app.delete("/api/articles/delete/:id", verifyToken, deleteArticle);
 app.put("/api/articles/edit/:id", verifyToken, editArticle);
 

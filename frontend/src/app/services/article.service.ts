@@ -19,7 +19,7 @@ export class ArticleService {
 
   async addArticle(article: Article): Promise<void> {
     const token = localStorage.getItem(LOCAL_STORAGE_ITEMS.token);
-    await axios.post(ARTICLES_API_URL.articles, article, {
+    await axios.post(ARTICLES_API_URL.addArticle, article, {
       headers: { Authorization: `Bearer ${token}` }
     });
     this.getArticles();

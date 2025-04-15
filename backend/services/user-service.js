@@ -40,7 +40,7 @@ export async function registerUser(req, res) {
     return res.status(409).json({ message: "Username already exists." });
   }
   existingUser = users.filter((user) => user.fingerprint === fingerprint);
-  if (existingUser.length >= 5) {
+  if (existingUser.length >= 3) {
     return res.status(409).json({
       message:
         "You have reached the limit of registering accounts from one device, account limit = 3",
