@@ -15,14 +15,17 @@ import { ARTICLE_FORM_LABELS } from '../../data/labels/article-form-labels.enum'
   styleUrl: './article-form.component.css',
 })
 export class ArticleFormComponent implements OnInit {
+  @Input() isEditMode: boolean | undefined; // Flag to indicate if the form is for editing an article
   @Input() selectedArticle: Article | null = null;
   @Output() closeModal = new EventEmitter<void>(); // Emits event to close modal
   
   articleForm!: FormGroup;
   showCancelDialog = false; // Controls the cancel confirmation dialog
-  titleTooltip = false; // Tooltip for title max length
-  contentTooltip = false; // Tooltip for content max length
+  titleErrorMessage = false; // Tooltip for title max length
+  contentErrorMessage = false; // Tooltip for content max length
   labels = ARTICLE_FORM_LABELS;
+  modalTitle = '';
+  closeConfirmationMessage = '';
   // form validation messages
   minTitleLengthMessage = `Title must be between ${minTitleLength} - ${maxTitleLength} characters`;
   maxTitleLengthMessage = `Max ${maxTitleLength} characters allowed!`;
@@ -36,7 +39,9 @@ export class ArticleFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const currentUser = this.authService.getCurrentUser(); // Get logged-in user
+    const currentUser = this.authService.getCurrentUser();
+    this.closeConfirmationMessage = this.isEditMode ? this.labels.closeEditConfirmationMessage : this.labels.closeCreateConfirmationMessage; // Confirmation message based on edit mode
+    this.modalTitle = this.isEditMode ? this.labels.editArticleTitle : this.labels.createArticleTitle;
     this.articleForm = this.fb.group({
       title: [
         '',
@@ -74,16 +79,16 @@ export class ArticleFormComponent implements OnInit {
 
   handleTitleInput(): void {
     if (this.title?.value.length > maxTitleLength) {
-      this.titleTooltip = true;
-      setTimeout(() => (this.titleTooltip = false), TIMEOUTS.formValidationErrorDisplay); // Hide after 4 seconds
+      this.titleErrorMessage = true;
+      setTimeout(() => (this.titleErrorMessage = false), TIMEOUTS.formValidationErrorDisplay); // Hide after 4 seconds
       this.articleForm.patchValue({ title: this.title?.value.slice(0, maxTitleLength) }); // Prevent extra characters
     }
   }
 
   handleContentInput(): void {
     if (this.content?.value.length > maxContentLength) {
-      this.contentTooltip = true;
-      setTimeout(() => (this.contentTooltip = false), TIMEOUTS.formValidationErrorDisplay);
+      this.contentErrorMessage = true;
+      setTimeout(() => (this.contentErrorMessage = false), TIMEOUTS.formValidationErrorDisplay);
       this.articleForm.patchValue({
         content: this.content?.value.slice(0, maxContentLength),
       });

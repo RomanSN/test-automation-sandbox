@@ -35,6 +35,7 @@ export class ArticleListComponent implements OnInit {
   isLoggedIn = false;
   currentUser = '';
   selectedArticle!: Article | null;
+  isEditMode = false; // Flag to indicate if the form is for editing an article
   articles: Article[] = [];
   originalArticles: Article[] = []; // Preserve original order
   paginatedArticles: Article[] = [];
@@ -44,6 +45,7 @@ export class ArticleListComponent implements OnInit {
   searchControl = new FormControl('');
   searchQuery = '';
   searchPlaceholder: string = ARTICLES_PAGE_TEXTS.initialSearchPlaceholder;
+  searchTooltip = '';
   sortState: SortState = {
     author: 'default',
     title: 'default',
@@ -102,6 +104,7 @@ export class ArticleListComponent implements OnInit {
   closeArticleModal(): void {
     this.showArticleModal = false;
     this.selectedArticle = null;
+    this.isEditMode = false; // Set the flag to indicate editing mode
   }
 
   // edit article
@@ -111,6 +114,7 @@ export class ArticleListComponent implements OnInit {
 
   editArticle(article: Article): void {
     this.selectedArticle = article;
+    this.isEditMode = true; // Set the flag to indicate editing mode
     this.showArticleModal = true;
   }
 
@@ -143,7 +147,7 @@ export class ArticleListComponent implements OnInit {
 
   toggleMyArticles() {
     if (this.myArticlesOnly) {
-      this.articles = this.originalArticles;
+      this.articles = [...this.originalArticles];
       this.updatePaginatedArticles();
       this.myArticlesOnly = !this.myArticlesOnly;
     } else {
@@ -155,6 +159,7 @@ export class ArticleListComponent implements OnInit {
       this.myArticlesOnly = !this.myArticlesOnly;
       this.sortState.author = 'default';
       this.sortState.title = 'default';
+      articlesHelper.saveSortState(this.sortState);
     }
   }
 
@@ -162,15 +167,16 @@ export class ArticleListComponent implements OnInit {
     let filteredArticles;
     if (this.searchQuery.length === 0) {
       this.searchPlaceholder = ARTICLES_PAGE_TEXTS.initialSearchPlaceholder;
+      this.searchTooltip = '';
       this.articles = [...this.originalArticles];
       this.loadSortState();
     } else if (this.searchQuery.length < 3) {
-      this.searchPlaceholder =
+      this.searchTooltip =
         ARTICLES_PAGE_TEXTS.typeMinSignsNumberPlaceholder;
       this.articles = [...this.originalArticles];
       this.loadSortState();
     } else {
-      this.searchPlaceholder = '';
+      this.searchTooltip = '';
       filteredArticles = this.articles.filter(
         (article) =>
           article.title

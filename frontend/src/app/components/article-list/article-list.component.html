@@ -6,34 +6,41 @@
         <div class="search-container">
             <input type="text" [formControl]="searchControl" [placeholder]="searchPlaceholder" />
             <div class="clear-btn">
-                <button *ngIf="searchQuery.length > 0" (click)="clearSearch()"
-                    (keydown.space)="clearSearch()">✖</button>
+                <button *ngIf="searchQuery.length > 0" (click)="clearSearch()" (keydown.space)="clearSearch()">
+                    ✖
+                </button>
             </div>
         </div>
         <div class="articles-action-buttons">
-            <button [class.active]="myArticlesOnly" *ngIf="isLoggedIn" (click)="toggleMyArticles()">
+            <button [class.active]="myArticlesOnly" *ngIf="isLoggedIn" (click)="toggleMyArticles()"
+                data-testid="my-articles-button">
                 {{ buttons.myArticles }}
             </button>
             <button [class.active]="sortState.author !== 'default'" [disabled]="myArticlesOnly"
-                (click)="toggleSort('author')">
+                (click)="toggleSort('author')" data-testid="sort-by-author-button">
                 {{ buttons.sortByAuthor }}
                 <span class="arrow" [class.visible]="sortState.author === 'asc'">↑</span>
                 <span class="arrow" [class.visible]="sortState.author === 'desc'">↓</span>
             </button>
             <button [class.active]="sortState.title !== 'default'" [disabled]="myArticlesOnly"
-                (click)="toggleSort('title')">
+                (click)="toggleSort('title')" data-testid="sort-by-title-button">
                 {{ buttons.sortByTitle }}
                 <span class="arrow" [class.visible]="sortState.title === 'asc'">↑</span>
                 <span class="arrow" [class.visible]="sortState.title === 'desc'">↓</span>
             </button>
-            <button class="add-article" [class.active]="isLoggedIn" (click)="attemptToAddArticle()">
+            <button class="add-article" [class.active]="isLoggedIn" (click)="attemptToAddArticle()"
+                data-testid="add-article-button">
                 {{ buttons.addArticle }}
             </button>
         </div>
     </div>
+    <div class="search-hint">
+        <span>{{ searchTooltip }}</span>
+    </div>
 
     <div class="articles-list">
-        <div class="article-item" *ngFor="let article of paginatedArticles">
+        <div class="article-item" *ngFor="let article of paginatedArticles"
+            [attr.data-testid]="'article-' + article.id">
             <div class="article-header">
                 <h3 class="article-title">{{ article.title }}</h3>
                 <span class="article-author">Author: {{ article.author }}</span>
@@ -42,40 +49,51 @@
                 <p>{{ article.content }}</p>
             </div>
             <div class="article-footer">
-                <div class="article-futer-buttons">
-                    <button *ngIf="canEditArticle(article)" (click)="editArticle(article)">{{ buttons.edit }}</button>
+                <div class="article-footer-buttons">
+                    <button *ngIf="canEditArticle(article)" (click)="editArticle(article)"
+                        data-testid="edit-article-button">
+                        {{ buttons.edit }}
+                    </button>
                     <button class="delete-article" *ngIf="canEditArticle(article)"
-                        (click)="attemptToDeleteArticle(article)">{{ buttons.delete }}</button>
+                        (click)="attemptToDeleteArticle(article)" data-testid="delete-article-button">
+                        {{ buttons.delete }}
+                    </button>
                 </div>
-                <span class="article-date">Created: {{ article.dateCreated | date:'dd/MM/yyyy'}}</span>
+                <span class="article-date">Created: {{ article.dateCreated | date : "dd/MM/yyyy" }}</span>
             </div>
         </div>
     </div>
 
-    <div *ngIf="showLoginRequiredDialog" class="modal-overlay">
+    <div *ngIf="showLoginRequiredDialog" id="login-required-dialog" class="modal-overlay">
         <div class="modal">
             <p>{{ texts.logInRequiredMessage }}</p>
             <div class="modal-buttons">
                 <button (click)="navigateToLogin()">{{ buttons.login }}</button>
-                <button (click)="closeLoginRequiredDialog()">{{ buttons.cancel }}</button>
+                <button (click)="closeLoginRequiredDialog()">
+                    {{ buttons.cancel }}
+                </button>
             </div>
         </div>
     </div>
 
-    <div *ngIf="showConfirmDeleteArticleDialog" class="modal-overlay">
+    <div *ngIf="showConfirmDeleteArticleDialog" id="delete-article-confirmation" class="modal-overlay">
         <div class="modal">
             <p>{{ texts.deleteConfirmationMessage }}</p>
             <div class="modal-buttons">
-                <button (click)="deleteArticle()">{{ buttons.delete }}</button>
+                <button class="delete-article" (click)="deleteArticle()">
+                    {{ buttons.delete }}
+                </button>
                 <button (click)="cancelArticleDeletion()">{{ buttons.cancel }}</button>
             </div>
         </div>
     </div>
 
-    <app-article-form *ngIf="showArticleModal" [selectedArticle]="selectedArticle"
+    <app-article-form *ngIf="showArticleModal" [selectedArticle]="selectedArticle" [isEditMode]="isEditMode"
         (closeModal)="closeArticleModal()"></app-article-form>
 
-    <h1 *ngIf="articles.length === 0" class="no-articles">{{ texts.noArticleFound }}</h1>
+    <h1 *ngIf="articles.length === 0" class="no-articles">
+        {{ texts.noArticleFound }}
+    </h1>
 
     <!-- Pagination Controls -->
     <mat-paginator [length]="articles.length" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]"

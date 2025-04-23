@@ -1,5 +1,5 @@
 <header class="header">
-  <div class="logo header-block">{{ labels.appName }}</div>
+  <div class="header-block logo" [routerLink]="['/home']">{{ labels.appName }}</div>
   <div class="header-block user-greeting">
     <span *ngIf="isLoggedIn">Hello, {{ username }}</span>
   </div>
