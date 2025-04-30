@@ -16,6 +16,12 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptorService } from './interceptors/auth-interceptor.service';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { SandboxComponent } from './components/sandbox/sandbox.component';
+import { CalendarComponent } from './components/sandbox/calendar/calendar.component';
+import { GridComponent } from './components/sandbox/grid/grid.component';
+import { DropdownComponent } from './components/sandbox/dropdown/dropdown.component';
+import { ClockComponent } from './components/sandbox/clock/clock.component';
+import { DragDropComponent } from './components/sandbox/drag-drop/drag-drop.component';
 
 @NgModule({
   imports: [
@@ -32,7 +38,14 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     LoginComponent,
     ArticleListComponent,
     ArticleFormComponent,
-    SignupComponent
+    SignupComponent,
+    LoginComponent,
+    SandboxComponent,
+    GridComponent,
+    CalendarComponent,
+    DropdownComponent,
+    ClockComponent,
+    DragDropComponent,
   ],
   providers: [
     {

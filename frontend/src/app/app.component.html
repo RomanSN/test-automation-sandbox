@@ -5,6 +5,7 @@
   </div>
   <div  class="header-buttons header-block">
     <button [routerLink]="['/home']" [routerLinkActive]="['active']">{{ labels.homeButtonLabel }}</button>
+    <button [routerLink]="['/playground']" [routerLinkActive]="['active']">{{ labels.playgroundButtonLabel }}</button>
     <button [routerLink]="['/articles']" [routerLinkActive]="['active']">{{ labels.articlesButtonLabel }}</button>
     <button *ngIf="!isLoggedIn" [routerLink]="['/login']" [routerLinkActive]="['active']">{{ labels.loginButtonLabel }}</button>
     <button *ngIf="!isLoggedIn" [routerLink]="['/signup']" [routerLinkActive]="['active']">{{ labels.signupinButtonLabel }}</button>
