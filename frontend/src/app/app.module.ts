@@ -16,6 +16,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptorService } from './interceptors/auth-interceptor.service';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { AgGridModule } from 'ag-grid-angular';
 import { SandboxComponent } from './components/sandbox/sandbox.component';
 import { CalendarComponent } from './components/sandbox/calendar/calendar.component';
 import { GridComponent } from './components/sandbox/grid/grid.component';
@@ -30,7 +31,8 @@ import { DragDropComponent } from './components/sandbox/drag-drop/drag-drop.comp
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
     MatPaginatorModule,
-    MatTooltipModule
+    MatTooltipModule,
+    AgGridModule,
   ],
   declarations: [
     AppComponent,

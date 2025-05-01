@@ -1,0 +1,93 @@
+[
+    {
+      "make": "Toyota",
+      "model": "Corolla",
+      "country": "Japan",
+      "bodyType": "Sedan",
+      "year": 2020,
+      "fuelType": "Petrol",
+      "price": 20000
+    },
+    {
+      "make": "Ford",
+      "model": "Focus",
+      "country": "USA",
+      "bodyType": "Hatchback",
+      "year": 2019,
+      "fuelType": "Diesel",
+      "price": 18000
+    },
+    {
+      "make": "Volkswagen",
+      "model": "Golf",
+      "country": "Germany",
+      "bodyType": "Hatchback",
+      "year": 2021,
+      "fuelType": "Petrol",
+      "price": 22000
+    },
+    {
+      "make": "Honda",
+      "model": "Civic",
+      "country": "Japan",
+      "bodyType": "Sedan",
+      "year": 2018,
+      "fuelType": "Hybrid",
+      "price": 21000
+    },
+    {
+      "make": "BMW",
+      "model": "3 Series",
+      "country": "Germany",
+      "bodyType": "Sedan",
+      "year": 2020,
+      "fuelType": "Diesel",
+      "price": 35000
+    },
+    {
+      "make": "Hyundai",
+      "model": "Elantra",
+      "country": "South Korea",
+      "bodyType": "Sedan",
+      "year": 2019,
+      "fuelType": "Petrol",
+      "price": 19000
+    },
+    {
+      "make": "Chevrolet",
+      "model": "Malibu",
+      "country": "USA",
+      "bodyType": "Sedan",
+      "year": 2021,
+      "fuelType": "Petrol",
+      "price": 23000
+    },
+    {
+      "make": "Kia",
+      "model": "Optima",
+      "country": "South Korea",
+      "bodyType": "Sedan",
+      "year": 2018,
+      "fuelType": "Hybrid",
+      "price": 21000
+    },
+    {
+      "make": "Nissan",
+      "model": "Altima",
+      "country": "Japan",
+      "bodyType": "Sedan",
+      "year": 2020,
+      "fuelType": "Petrol",
+      "price": 24000
+    },
+    {
+      "make": "Mazda",
+      "model": "Mazda3",
+      "country": "Japan",
+      "bodyType": "Hatchback",
+      "year": 2019,
+      "fuelType": "Petrol",
+      "price": 20000
+    }
+  ]
+  
