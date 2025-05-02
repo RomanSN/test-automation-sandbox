@@ -13,3 +13,29 @@ html {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.custom-grid {
+   border-radius: 5px;
+   overflow: hidden;
+}
+
+.custom-grid .ag-header {
+   font-family: Roboto, "Helvetica Neue", sans-serif !important;
+   background-color: #f5f5f5;
+   color: black;
+}
+
+.custom-grid .ag-cell {
+   background-color: white;
+}
+
+.custom-grid .ag-header-cell-resize::after {
+   content: '';
+   position: absolute;
+   height: 28px;
+   top: 10px;
+   bottom: 5px;
+   right: 0;
+   width: 2px;
+   background-color: #ccc;
+}
