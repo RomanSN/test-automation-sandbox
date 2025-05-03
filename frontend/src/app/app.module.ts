@@ -23,6 +23,10 @@ import { GridComponent } from './components/sandbox/grid/grid.component';
 import { DropdownComponent } from './components/sandbox/dropdown/dropdown.component';
 import { ClockComponent } from './components/sandbox/clock/clock.component';
 import { DragDropComponent } from './components/sandbox/drag-drop/drag-drop.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { DelayDialogComponent } from './components/sandbox/clock/clock-dialog/delay-dialog.component';
 
 @NgModule({
   imports: [
@@ -33,6 +37,9 @@ import { DragDropComponent } from './components/sandbox/drag-drop/drag-drop.comp
     MatPaginatorModule,
     MatTooltipModule,
     AgGridModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatIconModule,
   ],
   declarations: [
     AppComponent,
@@ -48,6 +55,7 @@ import { DragDropComponent } from './components/sandbox/drag-drop/drag-drop.comp
     DropdownComponent,
     ClockComponent,
     DragDropComponent,
+    DelayDialogComponent,
   ],
   providers: [
     {

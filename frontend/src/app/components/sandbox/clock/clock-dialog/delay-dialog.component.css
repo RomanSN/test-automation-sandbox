@@ -1,0 +1,8 @@
+::ng-deep .delayed-dialog-container .mat-mdc-dialog-surface {
+    border-radius: 15px;
+}
+
+::ng-deep .delayed-dialog-container .dialog-content h2 {
+    margin-top: 60px;
+    text-align: center;
+}

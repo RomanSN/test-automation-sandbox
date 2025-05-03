@@ -1,1 +1,6 @@
-<p>clock works!</p>
+<div class="clock-container">
+    <div class="digital-clock" data-testid="digital-clock">
+        {{ currentTime }}
+    </div>
+    <button [disabled]="buttonDisabled" (click)="openDialogWithDelay()">Open dialog with delay</button >
+</div>
