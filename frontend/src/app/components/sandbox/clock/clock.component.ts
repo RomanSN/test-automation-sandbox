@@ -50,7 +50,6 @@ export class ClockComponent implements OnInit, OnDestroy {
     this.buttonDisabled = true;
     setTimeout(() => {
       const dialogRef = this.dialog.open(DelayDialogComponent, {
-        width: '600px',
         panelClass: 'delayed-dialog-container'
       });
 
