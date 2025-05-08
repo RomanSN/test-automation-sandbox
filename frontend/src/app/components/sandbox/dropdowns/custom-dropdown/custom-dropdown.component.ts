@@ -4,7 +4,7 @@ import { Component, ElementRef, HostListener } from '@angular/core';
   selector: 'app-custom-dropdown',
   standalone: false,
   templateUrl: './custom-dropdown.component.html',
-  styleUrls: ['./custom-dropdown.component.css']  // ✅ FIXED
+  styleUrls: ['./custom-dropdown.component.css']
 })
 export class CustomDropdownComponent {
   cars = ['Ford', 'KIA', 'Tesla', 'Mercedes', 'Polonez'];
