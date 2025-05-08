@@ -1,0 +1,25 @@
+.cascade-dropdown-toggle {
+    padding: 5px 10px 5px 10px;
+    cursor: pointer;
+    border: 1px solid;
+    border-radius: 3px;
+    background-color: white;
+    font-size: 15px;
+}
+
+::ng-deep .mat-mdc-menu-panel.white-menu {
+    background-color: white;
+}
+
+.selection-display {
+    margin-top: 1rem;
+    font-family: sans-serif;
+    font-size: 1rem;
+}
+
+.cascade-clear-button {
+    border-radius: 5px;
+    background-color: white;
+    width: 60px;
+    height: 35px;
+}

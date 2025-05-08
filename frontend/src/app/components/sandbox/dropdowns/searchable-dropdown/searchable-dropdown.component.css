@@ -1,0 +1,24 @@
+.search-input {
+    padding: 5px;
+    width: 300px;
+    background-color: white; 
+    border: 1px solid black;
+    border-radius: 3px;
+}
+
+::ng-deep .ng-dropdown-panel {
+    background-color: white;
+    border: 1px solid black;
+    margin-top: 3px;
+}
+
+::ng-deep .ng-dropdown-panel .ng-option{
+    padding: 5px;
+}
+
+::ng-deep .ng-placeholder{
+    font: -webkit-control;
+    font-size: 15px;
+    opacity: 0.5;
+}
+

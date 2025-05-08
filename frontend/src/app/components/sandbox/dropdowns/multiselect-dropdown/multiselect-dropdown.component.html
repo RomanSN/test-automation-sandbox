@@ -1,0 +1,19 @@
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+<h2>4. Multi-select Dropdown</h2>
+
+<div class="multi-select" (click)="toggleDropdown()" [class.open]="dropdownOpen" tabindex="0">
+    <div class="selected">
+        {{ selectedSkills.length > 0 ? selectedSkills.join(', ') : 'Select skills' }}
+        <button type="button" class="clear-btn" (click)="clearSelection(); $event.stopPropagation()">×</button>
+    </div>
+
+    <ul class="options" *ngIf="dropdownOpen">
+        <li *ngFor="let skill of skills">
+            <label>
+                <input type="checkbox" [checked]="isSelected(skill)"
+                    (click)="toggleSkill(skill); $event.stopPropagation()" />
+                {{ skill }}
+            </label>
+        </li>
+    </ul>
+</div>

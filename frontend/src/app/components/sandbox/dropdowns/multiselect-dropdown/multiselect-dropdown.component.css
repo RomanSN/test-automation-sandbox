@@ -1,0 +1,50 @@
+.multi-select {
+    position: relative;
+    width: 300px;
+    border: 1px solid black;
+    border-radius: 3px;
+    padding: 5px;
+    background: white;
+    cursor: pointer;
+    font-family: sans-serif;
+    font-size: 15px;
+}
+
+.multi-select .selected {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.multi-select .clear-btn {
+    background: none;
+    border: none;
+    color: #999;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.multi-select .options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    border: 1px solid black;
+    background: white;
+    z-index: 1000;
+    margin: 0;
+    padding: 5px 0;
+    list-style: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.multi-select .options li {
+    padding: 5px;
+}
+
+.multi-select label {
+    cursor: pointer;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}

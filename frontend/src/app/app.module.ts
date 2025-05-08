@@ -20,13 +20,19 @@ import { AgGridModule } from 'ag-grid-angular';
 import { SandboxComponent } from './components/sandbox/sandbox.component';
 import { CalendarComponent } from './components/sandbox/calendar/calendar.component';
 import { GridComponent } from './components/sandbox/grid/grid.component';
-import { DropdownComponent } from './components/sandbox/dropdown/dropdown.component';
+import { DropdownsComponent } from './components/sandbox/dropdowns/dropdowns.component';
 import { ClockComponent } from './components/sandbox/clock/clock.component';
 import { DragDropComponent } from './components/sandbox/drag-drop/drag-drop.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { DelayDialogComponent } from './components/sandbox/clock/clock-dialog/delay-dialog.component';
+import { CustomDropdownComponent } from './components/sandbox/dropdowns/custom-dropdown/custom-dropdown.component';
+import { SearchableDropdownComponent } from './components/sandbox/dropdowns/searchable-dropdown/searchable-dropdown.component';
+import { MultiselectDropdownComponent } from './components/sandbox/dropdowns/multiselect-dropdown/multiselect-dropdown.component';
+import { CascadeDropdownComponent } from './components/sandbox/dropdowns/cascade-dropdown/cascade-dropdown.component';
 
 @NgModule({
   imports: [
@@ -40,6 +46,8 @@ import { DelayDialogComponent } from './components/sandbox/clock/clock-dialog/de
     MatDialogModule,
     MatButtonModule,
     MatIconModule,
+    MatMenuModule,
+    NgSelectModule,
   ],
   declarations: [
     AppComponent,
@@ -52,7 +60,11 @@ import { DelayDialogComponent } from './components/sandbox/clock/clock-dialog/de
     SandboxComponent,
     GridComponent,
     CalendarComponent,
-    DropdownComponent,
+    DropdownsComponent,
+    CustomDropdownComponent,
+    SearchableDropdownComponent,
+    MultiselectDropdownComponent,
+    CascadeDropdownComponent,
     ClockComponent,
     DragDropComponent,
     DelayDialogComponent,

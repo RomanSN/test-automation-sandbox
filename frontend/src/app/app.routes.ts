@@ -8,7 +8,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { SandboxComponent } from './components/sandbox/sandbox.component';
 import { GridComponent } from './components/sandbox/grid/grid.component';
 import { CalendarComponent } from './components/sandbox/calendar/calendar.component';
-import { DropdownComponent } from './components/sandbox/dropdown/dropdown.component';
+import { DropdownsComponent } from './components/sandbox/dropdowns/dropdowns.component';
 import { ClockComponent } from './components/sandbox/clock/clock.component';
 import { DragDropComponent } from './components/sandbox/drag-drop/drag-drop.component';
 
@@ -24,7 +24,7 @@ export const routes: Routes = [
     { path: '', redirectTo: 'grid', pathMatch: 'full' },
     { path: 'grid', component: GridComponent },
     { path: 'calendar', component: CalendarComponent },
-    { path: 'dropdown', component: DropdownComponent },
+    { path: 'dropdowns', component: DropdownsComponent },
     { path: 'clock', component: ClockComponent },
     { path: 'drag-drop', component: DragDropComponent },
   ]},

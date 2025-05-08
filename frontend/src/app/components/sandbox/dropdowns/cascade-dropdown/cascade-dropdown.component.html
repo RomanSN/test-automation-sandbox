@@ -1,0 +1,46 @@
+<h2>5. Cascading Dropdown</h2>
+<button [matMenuTriggerFor]="countryMenu" class="cascade-dropdown-toggle">☰ Select city</button>
+
+<mat-menu #countryMenu="matMenu" class="white-menu">
+    <ng-container *ngFor="let country of countries | keyvalue">
+        <button mat-menu-item [matMenuTriggerFor]="stateMenus[country.key]" #childTrigger="matMenuTrigger"
+            (mouseenter)="childTrigger.openMenu()">
+            {{ country.key }}
+        </button>
+    </ng-container>
+</mat-menu>
+
+<!-- Declare all state menus -->
+<ng-container *ngFor="let country of countries | keyvalue">
+    <mat-menu #stateMenu="matMenu" class="white-menu">
+        <ng-container *ngFor="let state of country.value">
+            <button mat-menu-item [matMenuTriggerFor]="cityMenus[state]" #childTrigger="matMenuTrigger"
+                (mouseenter)="childTrigger.openMenu()">
+                {{ state }}
+            </button>
+        </ng-container>
+    </mat-menu>
+    <ng-container *ngIf="setStateMenuRef(country.key, stateMenu)"></ng-container>
+</ng-container>
+
+<!-- Declare all city menus -->
+<ng-container *ngFor="let state of allStates()">
+    <mat-menu #cityMenu="matMenu" class="white-menu">
+        <ng-container *ngFor="let city of cities[state] || []">
+            <button mat-menu-item (click)="selectCityForState(state, city)">
+                {{ city }}
+            </button>
+        </ng-container>
+    </mat-menu>
+    <ng-container *ngIf="setCityMenuRef(state, cityMenu)"></ng-container>
+</ng-container>
+
+<div class="selection-display" *ngIf="selectedCity">
+    <p>
+        <strong>Selected:</strong> {{ selectedCountry }} > {{ selectedState }} >
+        {{ selectedCity }}
+    </p>
+    <button mat-stroked-button (click)="clearSelection()" class="cascade-clear-button">
+        Clear
+    </button>
+</div>
