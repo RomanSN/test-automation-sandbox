@@ -1,13 +1,15 @@
 <!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
-<h2>2. Custom Styled Dropdown</h2>
+<div data-testid="castom-styling-dropdown">
+  <h2>2. Custom Styled Dropdown</h2>
 
-<div class="custom-dropdown" (click)="toggleDropdown()" [class.open]="isOpen">
-  <div class="dropdown-toggle" tabindex="0">{{ selectedCar || 'Select car' }}</div>
-  <ul class="dropdown-menu" *ngIf="isOpen">
-    <li (click)="clearSelection($event)">--None--</li>
-    <li *ngFor="let car of cars" (click)="selectCar(car, $event)">
-      {{ car }}
-    </li>
-  </ul>
+  <div class="custom-dropdown" (click)="toggleDropdown()" [class.open]="isOpen">
+    <div class="dropdown-toggle" tabindex="0">{{ selectedCar || 'Select car' }}</div>
+    <ul class="dropdown-menu" *ngIf="isOpen">
+      <li (click)="clearSelection($event)">--None--</li>
+      <li *ngFor="let car of cars" (click)="selectCar(car, $event)">
+        {{ car }}
+      </li>
+    </ul>
+  </div>
 </div>

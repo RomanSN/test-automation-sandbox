@@ -1,41 +1,47 @@
-<div class="dropdown-row">
-    <div class="dropdown-col">
-        <h2>1. Standard Select Dropdown</h2>
-        <select [(ngModel)]="selectedFruit">
-            <option value="" disabled selected>{{ selectedFruit || 'Select fruits' }}</option>
-            <option value="">--None--</option>
-            <option *ngFor="let fruit of fruits" [value]="fruit">{{ fruit }}</option>
-        </select>
-    </div>
+<div data-testid="dropdowns-component">
+    <div class="dropdown-row">
+        <div class="dropdown-col">
+            <div data-testid="standard-dropdown">
+                <h2>1. Standard Select Dropdown</h2>
+                <select [(ngModel)]="selectedFruit">
+                    <option value="" disabled selected>{{ selectedFruit || 'Select fruits' }}</option>
+                    <option value="">--None--</option>
+                    <option *ngFor="let fruit of fruits" [value]="fruit">{{ fruit }}</option>
+                </select>
+            </div>
+        </div>
 
-    <div class="dropdown-col">
-        <app-custom-dropdown></app-custom-dropdown>
-    </div>
-</div>
-
-<div class="dropdown-row">
-    <div class="dropdown-col">
-        <app-searchable-dropdown></app-searchable-dropdown>
-    </div>
-    <div class="dropdown-col">
-        <app-multiselect-dropdown></app-multiselect-dropdown>
-    </div>
-</div>
-
-<div class="dropdown-row">
-    <div class="dropdown-col">
-        <app-cascade-dropdown></app-cascade-dropdown>
-    </div>
-    <div class="dropdown-col">
-        <h2>6. Action Dropdown Menu</h2>
-        <div class="action-dropdown">
-            <button (click)="toggleActionMenu()">☰ Select action</button>
-            <ul *ngIf="isActionMenuOpen">
-                <li><a href="/home">Navigate to Home</a></li>
-                <li><a href="/articles">Navigate to Articles</a></li>
-                <li><a href="/playground">Navigate to Playground</a></li>
-            </ul>
+        <div class="dropdown-col">
+            <app-custom-dropdown></app-custom-dropdown>
         </div>
     </div>
 
+    <div class="dropdown-row">
+        <div class="dropdown-col">
+            <app-searchable-dropdown></app-searchable-dropdown>
+        </div>
+        <div class="dropdown-col">
+            <app-multiselect-dropdown></app-multiselect-dropdown>
+        </div>
+    </div>
+
+    <div class="dropdown-row">
+        <div class="dropdown-col">
+            <app-cascade-dropdown></app-cascade-dropdown>
+        </div>
+        <div class="dropdown-col">
+            <div data-testid="action-dropdown">
+                <h2>6. Action Dropdown Menu</h2>
+                <div class="action-dropdown">
+                    <button (click)="toggleActionMenu()">☰ Select action</button>
+                    <ul *ngIf="isActionMenuOpen">
+                        <li><a href="/home">Navigate to Home</a></li>
+                        <li><a href="/articles">Navigate to Articles</a></li>
+                        <li><a href="/playground">Navigate to Playground</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>

@@ -50,6 +50,7 @@ select {
 
 .action-dropdown li a {
     text-decoration: none;
+    white-space: nowrap;
 }
 
 .action-dropdown li:hover {
