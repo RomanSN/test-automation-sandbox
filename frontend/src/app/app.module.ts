@@ -18,7 +18,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AgGridModule } from 'ag-grid-angular';
 import { SandboxComponent } from './components/sandbox/sandbox.component';
-import { CalendarComponent } from './components/sandbox/calendar/calendar.component';
 import { GridComponent } from './components/sandbox/grid/grid.component';
 import { DropdownsComponent } from './components/sandbox/dropdowns/dropdowns.component';
 import { ClockComponent } from './components/sandbox/clock/clock.component';
@@ -33,11 +32,16 @@ import { CustomDropdownComponent } from './components/sandbox/dropdowns/custom-d
 import { SearchableDropdownComponent } from './components/sandbox/dropdowns/searchable-dropdown/searchable-dropdown.component';
 import { MultiselectDropdownComponent } from './components/sandbox/dropdowns/multiselect-dropdown/multiselect-dropdown.component';
 import { CascadeDropdownComponent } from './components/sandbox/dropdowns/cascade-dropdown/cascade-dropdown.component';
+import { CommonModule } from '@angular/common';
+import { FlatpickrDirective, provideFlatpickrDefaults } from 'angularx-flatpickr';
+import { CalendarComponent } from './components/sandbox/calendar/calendar.component';
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
+    CommonModule,
+    FlatpickrDirective,
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
     MatPaginatorModule,
@@ -59,24 +63,31 @@ import { CascadeDropdownComponent } from './components/sandbox/dropdowns/cascade
     LoginComponent,
     SandboxComponent,
     GridComponent,
-    CalendarComponent,
     DropdownsComponent,
     CustomDropdownComponent,
     SearchableDropdownComponent,
     MultiselectDropdownComponent,
     CascadeDropdownComponent,
     ClockComponent,
+    CalendarComponent,
     DragDropComponent,
     DelayDialogComponent,
   ],
   providers: [
+    provideFlatpickrDefaults({
+      dateFormat: 'DD MM YYYY'
+    }),
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
       multi: true
     },    
     AuthService,
-    AuthGuard],
+    AuthGuard
+  ],
+  exports: [
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

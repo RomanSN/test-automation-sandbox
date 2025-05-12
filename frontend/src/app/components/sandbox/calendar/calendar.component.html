@@ -1,1 +1,24 @@
-<p>calendar works!</p>
+<!-- eslint-disable @angular-eslint/template/label-has-associated-control -->
+<div data-testid="calendar-component">
+  <div class="calendar-row">
+    <div class="calendar-col">
+      <div data-testid="date-time-picker">
+        <div class="picker">
+          <h2>Date & Time Picker</h2>
+          <input type="text" mwlFlatpickr [(ngModel)]="dateTime" class="form-control" [options]="dateTimeOptions"
+            placeholder="Pick a date and time" />
+        </div>
+      </div>
+    </div>
+
+    <div class="calendar-col">
+      <div data-testid="date-range-picker">
+        <div class="picker">
+          <h2>Date Range Picker</h2>
+          <input type="text" mwlFlatpickr [(ngModel)]="dateRange" class="form-control" [options]="dateRangeOptions"
+            placeholder="Pick a date range" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+.calendar-row {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 5rem;
+}
+
+.calendar-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-right: 50px;
+    margin-left: 50px;
+    min-width: 300px;
+}
+
+.picker {
+    display: flex;
+    flex-direction: column;
+    margin-top: 100px;
+}
+
+::ng-deep .form-control {
+    font-size: 15px;
+    padding: 5px;
+    width: 300px;
+    border: 1px solid black;
+    border-radius: 3px;
+}
