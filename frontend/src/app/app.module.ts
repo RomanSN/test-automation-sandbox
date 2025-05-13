@@ -74,9 +74,7 @@ import { CalendarComponent } from './components/sandbox/calendar/calendar.compon
     DelayDialogComponent,
   ],
   providers: [
-    provideFlatpickrDefaults({
-      dateFormat: 'DD MM YYYY'
-    }),
+    provideFlatpickrDefaults(),
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,

@@ -1,1 +1,18 @@
-<p>drag-drop works!</p>
+<div class="container">
+    <div class="wrapper">
+        <!-- Draggable box (only shown if not dropped) -->
+        <div class="box draggable" *ngIf="!wasDropped" draggable="true" (dragstart)="onDragStart($event)">
+            Drag Me
+        </div>
+
+        <!-- Droppable zone -->
+        <h2 *ngIf="wasDropped">Dropped!</h2>
+        <div class="box droppable" (dragover)="onDragOver($event)" (drop)="onDrop($event)" [class.dropped]="wasDropped">
+            <div class="box draggable dropped-box" *ngIf="wasDropped" (dragstart)="onDragStart($event)">
+                Drag Me
+            </div>
+            <span *ngIf="!wasDropped" class="placeholder">Drop Here</span>
+        </div>
+    </div>
+    <button class="reset-button" *ngIf="wasDropped" (click)="reset()">Reset</button>
+</div>

@@ -19,7 +19,7 @@ export class CalendarComponent {
     defaultMinute: 30,
     minDate: 'today',
     altInput: true,
-    altFormat: 'j F Y H:i',
+    altFormat: 'd F Y H:i',
     allowInput: true,
     clickOpens: true,
   };
@@ -27,7 +27,7 @@ export class CalendarComponent {
   dateRangeOptions = {
     mode: this.range,
     dateFormat: 'Y-m-d',
-    altFormat: 'j F Y',
+    altFormat: 'd F Y',
     minDate: 'today',
     altInput: true,
     clickOpens: true
