@@ -11,6 +11,7 @@ import { CalendarComponent } from './components/sandbox/calendar/calendar.compon
 import { DropdownsComponent } from './components/sandbox/dropdowns/dropdowns.component';
 import { ClockComponent } from './components/sandbox/clock/clock.component';
 import { DragDropComponent } from './components/sandbox/drag-drop/drag-drop.component';
+import { IframeComponent } from './components/sandbox/iframe-component/iframe-component.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -27,6 +28,7 @@ export const routes: Routes = [
     { path: 'dropdowns', component: DropdownsComponent },
     { path: 'clock', component: ClockComponent },
     { path: 'drag-drop', component: DragDropComponent },
+    { path: 'iframe', component: IframeComponent },
   ]},
   { path: '**', redirectTo: '/home' }
 ];

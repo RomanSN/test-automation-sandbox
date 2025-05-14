@@ -1,0 +1,22 @@
+<div class="button-row">
+  <!-- Regular Button -->
+  <button
+    (click)="toggleRegular()"
+    [ngStyle]="{ backgroundColor: regularGreen ? 'rgb(165, 231, 165)' : 'white' }"
+  >
+    Regular Button
+  </button>
+
+  <!-- Shadow DOM Host -->
+  <div #shadowHost class="shadow-host"></div>
+</div>
+
+<div class="iframe-container">
+  <iframe
+    [src]="sanitizedUrl"
+    frameborder="0"
+    allowfullscreen
+    loading="lazy"
+  ></iframe>
+</div>
+<div></div>

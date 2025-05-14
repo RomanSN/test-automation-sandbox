@@ -35,6 +35,7 @@ import { CascadeDropdownComponent } from './components/sandbox/dropdowns/cascade
 import { CommonModule } from '@angular/common';
 import { FlatpickrDirective, provideFlatpickrDefaults } from 'angularx-flatpickr';
 import { CalendarComponent } from './components/sandbox/calendar/calendar.component';
+import { IframeComponent } from './components/sandbox/iframe-component/iframe-component.component';
 
 @NgModule({
   imports: [
@@ -72,6 +73,7 @@ import { CalendarComponent } from './components/sandbox/calendar/calendar.compon
     CalendarComponent,
     DragDropComponent,
     DelayDialogComponent,
+    IframeComponent,
   ],
   providers: [
     provideFlatpickrDefaults(),
