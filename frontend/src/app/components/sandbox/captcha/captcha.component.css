@@ -1,0 +1,12 @@
+.captcha-box {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cf-turnstile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
