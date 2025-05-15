@@ -37,7 +37,6 @@ import { FlatpickrDirective, provideFlatpickrDefaults } from 'angularx-flatpickr
 import { CalendarComponent } from './components/sandbox/calendar/calendar.component';
 import { IframeComponent } from './components/sandbox/iframe-component/iframe-component.component';
 import { CaptchaComponent } from './components/sandbox/captcha/captcha.component';
-import { RecaptchaModule } from 'ng-recaptcha';
 
 @NgModule({
   imports: [
@@ -55,7 +54,6 @@ import { RecaptchaModule } from 'ng-recaptcha';
     MatIconModule,
     MatMenuModule,
     NgSelectModule,
-    RecaptchaModule,
   ],
   declarations: [
     AppComponent,

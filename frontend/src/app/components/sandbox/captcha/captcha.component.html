@@ -1,10 +1,10 @@
 <div class="captcha-box">
-    <h2>Google reCaptcha</h2>
-    <re-captcha (resolved)="onCaptchaResolved($event)" [siteKey]="recaptchaSiteKey"></re-captcha>
-
-    <p *ngIf="token">✅ Captcha passed</p>
+  <h2>Google reCAPTCHA</h2>
+  <div id="recaptcha-container"></div>
+  <p *ngIf="token">✅ Captcha passed</p>
 </div>
+
 <div class="captcha-box">
-    <h2>Turnstile captcha</h2>
-    <div #captcha class="cf-turnstile" (tokenValidated)="onCaptchaToken($event)"></div>
+  <h2>Turnstile CAPTCHA</h2>
+  <div class="cf-turnstile"></div>
 </div>

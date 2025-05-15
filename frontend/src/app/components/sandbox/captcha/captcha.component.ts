@@ -4,10 +4,14 @@ import {
   ElementRef,
   EventEmitter,
   Output,
+  NgZone,
 } from '@angular/core';
+import { environment } from '../../../../environments/environment';
 
 declare global {
   interface Window {
+    grecaptcha: any;
+    onRecaptchaLoad: () => void;
     turnstile: any;
   }
 }
@@ -22,28 +26,56 @@ export class CaptchaComponent implements AfterViewInit {
   @Output() tokenValidated = new EventEmitter<string>();
 
   recaptchaSiteKey = '6LcWbTorAAAAAJLxxUINO7ZI_zvCka3mb-Dcexr_';
-  turnstileSiteKey = '0x4AAAAAABdN0cfo7T0oJ4uD';
+  turnstileSiteKey = environment.production
+    ? '0x4AAAAAABdN0cfo7T0oJ4uD'
+    : '1x00000000000000000000AA';
   token: string | null = null;
 
-  constructor(private el: ElementRef) {}
+  private recaptchaWidgetId: any;
 
-  onCaptchaResolved(token: string | null) {
-    this.token = token!;
-    console.log('Captcha resolved with token:', token);
-  }
-
-  onCaptchaToken(token: string | Event) {
-    console.log('Received Turnstile token:', token);
-    // Send this token to your backend for verification
-  }
+  constructor(private el: ElementRef, private zone: NgZone) {}
 
   ngAfterViewInit() {
-    const container = this.el.nativeElement.querySelector('.cf-turnstile');
-    window.turnstile.render(container, {
-      sitekey: this.turnstileSiteKey,
+    this.initTurnstile();
+
+    // Setup callback for when reCAPTCHA script loads
+    window.onRecaptchaLoad = () => {
+      this.renderRecaptcha();
+    };
+
+    // If script already loaded before component mounts
+    if (window.grecaptcha && window.grecaptcha.render) {
+      this.renderRecaptcha();
+    }
+  }
+
+  private renderRecaptcha() {
+    const container = this.el.nativeElement.querySelector('#recaptcha-container');
+
+    this.recaptchaWidgetId = window.grecaptcha.render(container, {
+      sitekey: this.recaptchaSiteKey,
       callback: (token: string) => {
-        this.tokenValidated.emit(token);
+        this.zone.run(() => {
+          this.token = token;
+          this.tokenValidated.emit(token);
+          console.log('reCAPTCHA token:', token);
+        });
       },
     });
+  }
+
+  private initTurnstile() {
+    const container = this.el.nativeElement.querySelector('.cf-turnstile');
+    if (window.turnstile) {
+      window.turnstile.render(container, {
+        sitekey: this.turnstileSiteKey,
+        callback: (token: string) => {
+          this.zone.run(() => {
+            this.tokenValidated.emit(token);
+            console.log('Turnstile token:', token);
+          });
+        },
+      });
+    }
   }
 }

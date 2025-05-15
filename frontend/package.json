@@ -32,7 +32,6 @@
     "axios": "^1.7.9",
     "express": "^4.21.2",
     "flatpickr": "^4.6.13",
-    "ng-recaptcha": "^13.2.1",
     "profanities": "^3.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
