@@ -23,7 +23,7 @@ export const routes: Routes = [
   { path: 'add', component: ArticleFormComponent, canActivate: [AuthGuard] },
   { path: 'edit/:id', component: ArticleFormComponent, canActivate: [AuthGuard] },
   { path: 'playground', component: SandboxComponent, children: [
-    { path: '', redirectTo: 'grid', pathMatch: 'full' },
+    { path: '', component: GridComponent },
     { path: 'grid', component: GridComponent },
     { path: 'calendar', component: CalendarComponent },
     { path: 'dropdowns', component: DropdownsComponent },

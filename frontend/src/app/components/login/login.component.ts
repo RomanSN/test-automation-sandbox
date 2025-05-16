@@ -45,7 +45,7 @@ export class LoginComponent {
     try {
       await this.authService.login(username, password);
       this.isLoggedIn = true;
-      this.router.navigate([ROUTES.articles]);
+      this.router.navigate([ROUTES.home]);
     } catch (error) {
       const message = getErrorMessage(error);
       alert(`Login failed with message: ${message}`);
