@@ -1,13 +1,12 @@
 :host {
     display: block;
-    height: 100vh;
     width: 100%;
 }
 
 .sandbox-container {
     display: flex;
-    height: 100vh;
     width: 100%;
+    height: 100%;
 }
 
 h2 {
@@ -22,7 +21,7 @@ h2 {
     width: 350px;
     background-color: white;
     border-right: 1px solid #ccc;
-    height: 800px;
+    height: 100%;
 }
 
 .sidebar nav a {
@@ -51,6 +50,5 @@ nav a:active {
     padding: 30px;
     display: flex;
     justify-content: center;
-    height: 100%;
     width: 100%;
 }
