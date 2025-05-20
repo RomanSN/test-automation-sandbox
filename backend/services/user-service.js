@@ -43,7 +43,7 @@ export async function registerUser(req, res) {
   if (existingUser.length >= 3) {
     return res.status(409).json({
       message:
-        "You have reached the limit of registering accounts from one device, account limit = 3",
+        "You have reached the limit of registering accounts for one user, account limit = 3",
     });
   }
 

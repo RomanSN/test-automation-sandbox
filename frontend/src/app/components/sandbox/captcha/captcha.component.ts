@@ -26,9 +26,9 @@ export class CaptchaComponent implements AfterViewInit {
   @Output() tokenValidated = new EventEmitter<string>();
 
   recaptchaSiteKey = '6LcWbTorAAAAAJLxxUINO7ZI_zvCka3mb-Dcexr_';
-  turnstileSiteKey = environment.production
-    ? '0x4AAAAAABdN0cfo7T0oJ4uD'
-    : '1x00000000000000000000AA';
+  turnstileSiteKey = !environment.production
+    ? '1x00000000000000000000AA'
+    : '0x4AAAAAABdN0cfo7T0oJ4uD';
   token: string | null = null;
 
   private recaptchaWidgetId: any;

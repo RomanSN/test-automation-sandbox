@@ -1,7 +1,69 @@
-<div class="content">
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+<div class="home-container">
+  <div class="content">
     <h2>Hello my young, or maybe not so young, AQA engineer!</h2>
 
-    <p>This site was created for you to practice testing automation. </p>
-    <p>Here you will find various web elements and forms, as well as you can test authentication and request interception.</p>
+    <p>This site was created for you to practice testing automation.</p>
+    <p>
+      Here you will find various web elements and forms, as well as you can test
+      authentication and request interception.
+    </p>
     <p>Good luck! May the Tester Force be with us!</p>
+    <div class="site-rules-link">
+      <a href="#" (click)="$event.preventDefault(); openModal()">Site rules</a>
+    </div>
+    <div id="myModal" *ngIf="isVisible" class="modal">
+      <div class="modal-content">
+        <span class="close" (click)="closeModal()">&times;</span>
+        <div class="rules-section">
+          <h2>Site rules</h2>
+          <p>
+            A non-logged-in user has full access to the Playground section and
+            limited access to the Articles section.
+          </p>
+          <p>
+            A non-logged-in user can view existing articles, sort and filter
+            them. A logged-in user has extended access:
+          </p>
+          <p>
+            the ability to filter only their own articles, create a new article,
+            delete, and edit an existing ones.
+          </p>
+          <p>The JWT standard is used for authentication/authorization.</p>
+          <h4>Registration rules:</h4>
+          <p>A user can register up to 3 accounts.</p>
+          <p>Username: 5 - 20 characters</p>
+          <p>Password: 5 - 20 characters</p>
+          <h4>Articles limitation:</h4>
+          <p>Each account is limited to creating 10 articles.</p>
+          <p>Title: 5 - 30 characters</p>
+          <p>Content: 20 - 1000 characters</p>
+          <h4>Prohibited Content Policy:</h4>
+          <p>Any content is prohibited if it</p>
+          <ul>
+            <li>Contains profanity, obscenity, or vulgar language</li>
+            <li>Includes hate speech, harassment, or threats</li>
+            <li>
+              Promotes racism, sexism, or any form of discrimination or bigotry
+            </li>
+            <li>Is abusive, defamatory, or incites violence</li>
+          </ul>
+          <p>
+            Violations of this policy may result in immediate removal of content
+            and suspension of your account(s).
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <p>
+      Contact:
+      <a href="mailto:roman.snitsar&#64;gmail.com"
+        >roman.snitsar&#64;gmail.com</a
+      >
+    </p>
+    <p>Copyright © Roman Snitsar {{ currentYear }}. All rights reserved.</p>
+  </div>
 </div>
