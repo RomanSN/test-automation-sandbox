@@ -1,0 +1,9 @@
+<div class="modal-overlay">
+  <div class="modal">
+    <p>Are you sure you want to delete your account? This will remove all your articles and cannot be undone.</p>
+    <div class="modal-buttons">
+      <button (click)="confirm.emit()">Confirm</button>
+      <button (click)="cancelDelete.emit()">Cancel</button>
+    </div>
+  </div>
+</div>

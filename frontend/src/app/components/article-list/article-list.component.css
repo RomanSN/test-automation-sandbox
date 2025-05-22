@@ -41,7 +41,7 @@ button.add-article.active {
 }
 
 button.delete-article {
-  background: rgb(236, 145, 110) !important;
+  background: #e53935 !important;
   color: white;
 }
 
@@ -176,19 +176,22 @@ button.delete-article {
 
 .modal {
   background: white;
-  padding: 20px;
+  max-width: 400px;
+  padding: 32px 24px;
   border-radius: 8px;
   text-align: center;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.2);
 }
 
 .modal-buttons {
+  margin-top: 24px;
   display: flex;
-  justify-content: center;
-  gap: 10px;
+  justify-content: space-around;
 }
 
 .modal-buttons button {
-  padding: 5px 10px;
+  min-width: 100px;
+  padding: 8px 16px;
   border-radius: 3px;
   border-width: 1px;
   text-align: center;

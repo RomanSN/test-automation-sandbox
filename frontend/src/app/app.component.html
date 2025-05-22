@@ -1,3 +1,5 @@
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <header class="header">
   <div class="header-block logo" [routerLink]="['/home']">{{ labels.appName }}</div>
   <div class="header-block user-greeting">
@@ -9,9 +11,22 @@
     <button [routerLink]="['/articles']" [routerLinkActive]="['active']">{{ labels.articlesButtonLabel }}</button>
     <button *ngIf="!isLoggedIn" [routerLink]="['/login']" [routerLinkActive]="['active']">{{ labels.loginButtonLabel }}</button>
     <button *ngIf="!isLoggedIn" [routerLink]="['/signup']" [routerLinkActive]="['active']">{{ labels.signupinButtonLabel }}</button>
-    <button *ngIf="isLoggedIn" (click)="logOut()">{{ labels.logoutButtonLabel }}</button>
+  </div>
+  <div class="header-user" *ngIf="isLoggedIn">
+    <span class="user-icon" (click)="toggleUserMenu($event)">
+      <mat-icon>account_circle</mat-icon>
+    </span>
+    <div *ngIf="showUserMenu" class="user-dropdown" (click)="$event.stopPropagation()">
+      <button (click)="logOut()">Logout</button>
+      <button (click)="openDeleteDialog()">Delete Account</button>
+    </div>
   </div>
 </header>
+<app-confirm-delete-user-dialog
+  *ngIf="showDeleteDialog"
+  (confirm)="deleteUser()"
+  (cancelDelete)="closeDeleteDialog()">
+</app-confirm-delete-user-dialog>
 
 <div class="container">
   <router-outlet></router-outlet>

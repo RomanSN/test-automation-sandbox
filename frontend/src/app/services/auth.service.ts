@@ -61,4 +61,13 @@ export class AuthService {
     const expiration = this.getTokenExpiration();
     return expiration ? Date.now() > expiration : true;
   }
+
+  async deleteUserAndArticles(): Promise<AxiosResponse<any, any>> {
+    const token = this.getToken();
+    const username = this.getCurrentUser();
+    const response = await axios.post(USER_API_URL.delete, username, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    return response;
+  }
 }

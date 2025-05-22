@@ -21,6 +21,8 @@ export class AppComponent implements OnInit {
   logoutButtonLabel = APP_HEADER_LABELS.logoutButtonLabel;
   loginButtonLabel = APP_HEADER_LABELS.loginButtonLabel;
   signupinButtonLabel = APP_HEADER_LABELS.signupinButtonLabel;
+  showUserMenu = false;
+  showDeleteDialog = false;
 
 
   constructor(private authService: AuthService, private router: Router) {
@@ -36,8 +38,12 @@ export class AppComponent implements OnInit {
         this.username = localStorage.getItem(LOCAL_STORAGE_ITEMS.username);
       }
     });
-    this.checkUserTokenExpiration();
-    //this.setTokenExpirationValidation();
+    //this.checkUserTokenExpiration();
+    this.setTokenExpirationValidation();
+    this.authService.isLoggedIn.subscribe((state) => {
+      this.isLoggedIn = state;
+    });
+    document.addEventListener('click', () => this.showUserMenu = false);
   }
 
   checkUserTokenExpiration() {
@@ -51,7 +57,7 @@ export class AppComponent implements OnInit {
     setInterval(() => {
       if (this.authService.isTokenExpired()) {
         this.authService.logout();
-        this.router.navigate([ROUTES.login]);
+        //this.router.navigate([ROUTES.login]);
       }
     }, 60000); // Check every minute
   }
@@ -60,5 +66,30 @@ export class AppComponent implements OnInit {
     this.authService.logout();
     this.isLoggedIn = false;
     this.router.navigate([ROUTES.login]);
+  }
+
+  toggleUserMenu(event: MouseEvent) {
+    event.stopPropagation();
+    this.showUserMenu = !this.showUserMenu;
+  }
+
+  openDeleteDialog() {
+    this.showDeleteDialog = true;
+    this.showUserMenu = false;
+  }
+
+  closeDeleteDialog() {
+    this.showDeleteDialog = false;
+  }
+
+  async deleteUser() {
+    try {
+      await this.authService.deleteUserAndArticles();
+      this.showDeleteDialog = false;
+      alert('Your account and all articles have been deleted.');
+      this.router.navigate([ROUTES.home]);
+    } catch (error) {
+      alert(`Failed to delete account. Please try again. Error: ${error}`);
+    }
   }
 }
