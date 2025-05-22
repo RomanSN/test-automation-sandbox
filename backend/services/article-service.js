@@ -11,7 +11,8 @@ export async function getArticles(req, res) {
 }
 
 export async function addArticle(req, res) {
-  const { author, content, title } = req.body;
+  const { content, title } = req.body;
+  const author = req.user.username;
   const violatingContent = await containsBadWords(content);
   const violatingTitle = await containsBadWords(title);
   const violatingWords = violatingContent.concat(violatingTitle);
@@ -47,7 +48,7 @@ export async function addArticle(req, res) {
 
 export async function deleteArticle(req, res) {
   articleModel
-    .findOneAndDelete({ id: req.params.id })
+    .findOneAndDelete({ id: req.params.id, author: req.user.username })
     .then(() => {
       res.json({ message: "Article successfully deleted" });
     })
@@ -63,7 +64,7 @@ export async function editArticle(req, res) {
   }
   articleModel
     .updateOne(
-      { id: req.params.id },
+      { id: req.params.id, author: req.user.username },
       { $set: { title: req.body.title, content: req.body.content } }
     )
     .then(() => {

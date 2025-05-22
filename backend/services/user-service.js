@@ -1,5 +1,6 @@
 import { getInvalidUserRequestMessage } from "../utils/user-helper.js";
 import { userModel } from "../data/models/user.model.js";
+import { articleModel } from "../data/models/article.model.js";
 
 const jwt = await import("jsonwebtoken");
 const bcrypt = await import("bcryptjs");
@@ -59,4 +60,19 @@ export async function registerUser(req, res) {
     .catch((err) => {
       res.json(503).json({ message: `Error registering user ${err}` });
     });
+}
+
+export async function deleteUserAndArticles(req, res) {
+  const username = req.user.username;
+  const user = await userModel.findOne({ username: username });
+  if (!user) return res.status(400).json({ message: "User not found" });
+  try {
+    // Delete all articles by user
+    await articleModel.deleteMany({ author: username });
+    // Delete user
+    await userModel.deleteOne({ username });
+    res.json({ message: "User and all articles deleted successfully." });
+  } catch (err) {
+    res.status(500).json({ message: "Failed to delete user and articles." });
+  }
 }

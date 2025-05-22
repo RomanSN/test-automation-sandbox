@@ -64,8 +64,7 @@ export class AuthService {
 
   async deleteUserAndArticles(): Promise<AxiosResponse<any, any>> {
     const token = this.getToken();
-    const username = this.getCurrentUser();
-    const response = await axios.post(USER_API_URL.delete, username, {
+    const response = await axios.delete(USER_API_URL.delete, {
       headers: { Authorization: `Bearer ${token}` }
     });
     return response;

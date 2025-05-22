@@ -87,7 +87,7 @@ export class AppComponent implements OnInit {
       await this.authService.deleteUserAndArticles();
       this.showDeleteDialog = false;
       alert('Your account and all articles have been deleted.');
-      this.router.navigate([ROUTES.home]);
+      this.logOut();
     } catch (error) {
       alert(`Failed to delete account. Please try again. Error: ${error}`);
     }
