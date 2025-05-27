@@ -6,7 +6,7 @@ import {
   Output,
   NgZone,
 } from '@angular/core';
-import { environment } from '../../../../environments/environment';
+import { Router } from '@angular/router';
 
 declare global {
   interface Window {
@@ -26,23 +26,27 @@ export class CaptchaComponent implements AfterViewInit {
   @Output() tokenValidated = new EventEmitter<string>();
 
   recaptchaSiteKey = '6LcWbTorAAAAAJLxxUINO7ZI_zvCka3mb-Dcexr_';
-  turnstileSiteKey = !environment.production
-    ? '1x00000000000000000000AA'
-    : '0x4AAAAAABdN0cfo7T0oJ4uD';
   token: string | null = null;
 
-  private recaptchaWidgetId: any;
+  username = '';
+  password = '';
+  usernameTouched = false;
+  passwordTouched = false;
+  usernameError = false;
+  passwordError = false;
+  canSubmit = false;
 
-  constructor(private el: ElementRef, private zone: NgZone) {}
+  constructor(
+    private el: ElementRef,
+    private zone: NgZone,
+    private router: Router
+  ) {}
 
   ngAfterViewInit() {
-    this.initTurnstile();
-
     // Setup callback for when reCAPTCHA script loads
     window.onRecaptchaLoad = () => {
       this.renderRecaptcha();
     };
-
     // If script already loaded before component mounts
     if (window.grecaptcha && window.grecaptcha.render) {
       this.renderRecaptcha();
@@ -50,32 +54,51 @@ export class CaptchaComponent implements AfterViewInit {
   }
 
   private renderRecaptcha() {
-    const container = this.el.nativeElement.querySelector('#recaptcha-container');
+    const container = this.el.nativeElement.querySelector(
+      '#recaptcha-container'
+    );
 
-    this.recaptchaWidgetId = window.grecaptcha.render(container, {
+    window.grecaptcha.render(container, {
       sitekey: this.recaptchaSiteKey,
       callback: (token: string) => {
         this.zone.run(() => {
           this.token = token;
           this.tokenValidated.emit(token);
-          console.log('reCAPTCHA token:', token);
+          this.validateFields();
         });
       },
     });
   }
 
-  private initTurnstile() {
-    const container = this.el.nativeElement.querySelector('.cf-turnstile');
-    if (window.turnstile) {
-      window.turnstile.render(container, {
-        sitekey: this.turnstileSiteKey,
-        callback: (token: string) => {
-          this.zone.run(() => {
-            this.tokenValidated.emit(token);
-            console.log('Turnstile token:', token);
-          });
-        },
-      });
+  validateFields() {
+    this.usernameTouched = true;
+    this.passwordTouched = true;
+    this.usernameError =
+      !this.username || this.username.length < 5 || this.username.length > 10;
+    this.passwordError =
+      !this.password || this.password.length < 5 || this.password.length > 10;
+    this.canSubmit = !this.usernameError && !this.passwordError && !!this.token;
+  }
+
+  onSubmit() {
+    this.usernameTouched = true;
+    this.passwordTouched = true;
+    this.validateFields();
+    if (this.canSubmit) {
+      alert('Fake login successful!');
+      // Reset form for demo
+      this.username = '';
+      this.password = '';
+      this.token = null;
+      this.canSubmit = false;
+      this.reloadComponent();
     }
+  }
+
+  reloadComponent(): void {
+    const currentUrl = this.router.url;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
+    });
   }
 }

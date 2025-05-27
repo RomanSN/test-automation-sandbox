@@ -1,10 +1,50 @@
-<div class="captcha-box">
-  <h2>Google reCAPTCHA</h2>
-  <div id="recaptcha-container"></div>
-  <p *ngIf="token">✅ Captcha passed</p>
-</div>
+<form
+  class="captcha-box"
+  (ngSubmit)="onSubmit()"
+  #loginForm="ngForm"
+  ngModel
+  autocomplete="off"
+>
+  <h2>Fake Login with Google reCAPTCHA</h2>
+    <div class="input-field">
+      <input
+        type="text"
+        name="username"
+        [(ngModel)]="username"
+        required
+        minlength="5"
+        maxlength="10"
+        placeholder="Username"
+        (ngModelChange)="validateFields()"
+      />
+      <div class="error" *ngIf="usernameTouched && usernameError">
+        Username must be 5-10 characters.
+      </div>
+    </div>
+    <div class="input-field">
+      <input
+        type="password"
+        name="password"
+        [(ngModel)]="password"
+        required
+        minlength="5"
+        maxlength="10"
+        placeholder="Password"
+        (ngModelChange)="validateFields()"
+      />
+      <div class="error" *ngIf="passwordTouched && passwordError">
+        Password must be 5-10 characters.
+      </div>
+    </div>
 
-<div class="captcha-box">
-  <h2>Turnstile CAPTCHA</h2>
-  <div class="cf-turnstile"></div>
-</div>
+  <div id="recaptcha-container" style="margin: 16px 0"></div>
+  <p *ngIf="token">✅ Captcha passed</p>
+
+  <button
+    type="submit"
+    [disabled]="!canSubmit"
+    [ngClass]="{ 'btn-disabled': !canSubmit, 'btn-enabled': canSubmit }"
+  >
+    Submit
+  </button>
+</form>
