@@ -38,6 +38,7 @@ import { CalendarComponent } from './components/sandbox/calendar/calendar.compon
 import { IframeComponent } from './components/sandbox/iframe-component/iframe-component.component';
 import { CaptchaComponent } from './components/sandbox/captcha/captcha.component';
 import { ConfirmDeleteUserDialogComponent } from './components/confirm-delete-user-dialog/confirm-delete-user-dialog.component';
+import { FileActionsComponent } from './components/sandbox/file-actions/file-actions.component';
 
 
 @NgModule({
@@ -78,7 +79,8 @@ import { ConfirmDeleteUserDialogComponent } from './components/confirm-delete-us
     DelayDialogComponent,
     IframeComponent,
     CaptchaComponent,
-    ConfirmDeleteUserDialogComponent
+    ConfirmDeleteUserDialogComponent,
+    FileActionsComponent,
   ],
   providers: [
     provideFlatpickrDefaults(),

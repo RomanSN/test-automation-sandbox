@@ -1,0 +1,38 @@
+<div>
+  <h2>File Uploader</h2>
+  <p>Choose a file on your system or drag and drop a file into the area below. Click the Upload button</p>
+  <p>to upload selected file. After uploading, a download link will be provided below in the Download section.</p>
+  <p>Supported file types: .txt, .jpg, .png</p>
+  <div class="button-group">
+    <div class="choose-file-section">
+      <input type="file" (change)="onFileSelected($event)" #fileInput style="display: none" />
+      <button type="button" class="file-cta-button" (click)="fileInput.click()">
+        Choose file
+      </button>
+      <span *ngIf="selectedFile" style="font-weight: 500">{{
+        selectedFile.name
+        }}</span>
+    </div>
+    <div>
+      <button (click)="onUpload()" [disabled]="!selectedFile" class="file-cta-button">
+        Upload
+      </button>
+      <button (click)="resetSelection(fileInput)" [disabled]="!selectedFile && !droppedFileContent && !droppedImageUrl"
+        class="file-cta-button" style="margin-left: 10px">
+        Reset
+      </button>
+    </div>
+  </div>
+
+  <div class="drop-area" (dragover)="onDragOver($event)" (drop)="onDrop($event)">
+    <img *ngIf="droppedImageUrl" [src]="droppedImageUrl" alt="Dropped image" class="file-img-content" />
+    <textarea *ngIf="droppedFileContent" class="file-text-content">{{ droppedFileContent }}</textarea>
+  </div>
+</div>
+
+<div style="margin-top: 20px">
+  <h2>Download file</h2>
+  <a *ngIf="downloadUrl" [href]="downloadUrl" download="{{ downloadFileName }}" class="download-link">
+    {{ downloadFileName }}
+  </a>
+</div>

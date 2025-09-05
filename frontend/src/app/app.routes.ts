@@ -13,6 +13,7 @@ import { ClockComponent } from './components/sandbox/clock/clock.component';
 import { DragDropComponent } from './components/sandbox/drag-drop/drag-drop.component';
 import { IframeComponent } from './components/sandbox/iframe-component/iframe-component.component';
 import { CaptchaComponent } from './components/sandbox/captcha/captcha.component';
+import { FileActionsComponent } from './components/sandbox/file-actions/file-actions.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -31,6 +32,7 @@ export const routes: Routes = [
     { path: 'drag-drop', component: DragDropComponent },
     { path: 'iframe', component: IframeComponent },
     { path: 'captcha', component: CaptchaComponent },
+    { path: 'file-actions', component: FileActionsComponent },
   ]},
   { path: '**', redirectTo: '/home' }
 ];
