@@ -42,6 +42,12 @@ export class FileActionsComponent {
         const blob = new Blob([e.target!.result as ArrayBuffer]);
         this.downloadUrl = URL.createObjectURL(blob);
         this.downloadFileName = this.selectedFile!.name;
+        setTimeout(() => {
+          const link = document.getElementById('download-link');
+          if (link) {
+            link.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        }, 0);
       };
       reader.readAsArrayBuffer(this.selectedFile);
     }

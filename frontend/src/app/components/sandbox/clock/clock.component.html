@@ -1,6 +1,11 @@
+<h2 class="page-title-centered">Clock page</h2>
+<div class="page-description">
+    <p>On this page, you can practice testing dynamic content, delayed events,</p>
+    <p>as well as time manipulation in the browser and system (e.g., time setting or shifting)</p>
+</div>
 <div class="clock-container">
     <div class="digital-clock" data-testid="digital-clock">
         {{ currentTime }}
     </div>
-    <button [disabled]="buttonDisabled" (click)="openDialogWithDelay()">Open dialog with delay</button >
+    <button [disabled]="buttonDisabled" (click)="openDialogWithDelay()">Open dialog with delay</button>
 </div>

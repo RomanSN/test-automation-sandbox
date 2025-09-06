@@ -1,3 +1,5 @@
+<h2 class="page-title-centered">File actions page</h2>
+<p class="page-description">On this page, you can practice uploading and downloading files</p>
 <div>
   <h2>File Uploader</h2>
   <p>Choose a file on your system or drag and drop a file into the area below. Click the Upload button</p>
@@ -14,7 +16,7 @@
         }}</span>
     </div>
     <div>
-      <button (click)="onUpload()" [disabled]="!selectedFile" class="file-cta-button">
+      <button (click)="onUpload()" [disabled]="!selectedFile || !!downloadUrl" class="file-cta-button">
         Upload
       </button>
       <button (click)="resetSelection(fileInput)" [disabled]="!selectedFile && !droppedFileContent && !droppedImageUrl"
@@ -30,9 +32,9 @@
   </div>
 </div>
 
-<div style="margin-top: 20px">
+<div style="margin-top: 20px; display: flex;">
   <h2>Download file</h2>
-  <a *ngIf="downloadUrl" [href]="downloadUrl" download="{{ downloadFileName }}" class="download-link">
+  <a *ngIf="downloadUrl" [href]="downloadUrl" download="{{ downloadFileName }}" class="download-link" id="download-link">
     {{ downloadFileName }}
   </a>
 </div>

@@ -16,7 +16,7 @@
 .picker {
     display: flex;
     flex-direction: column;
-    margin-top: 100px;
+    margin-top: 50px;
 }
 
 ::ng-deep .form-control {

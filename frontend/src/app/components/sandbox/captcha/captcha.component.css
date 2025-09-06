@@ -1,3 +1,7 @@
+:host {
+    text-align: -webkit-center;
+}
+
 .captcha-box {
     margin-top: 40px;
     display: flex;

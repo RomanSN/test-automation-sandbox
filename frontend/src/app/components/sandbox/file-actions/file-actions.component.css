@@ -1,5 +1,11 @@
-.upload-btn {
-  margin-top: 12px;
+.button-group {
+  display: flex;
+  gap: 12px;
+  margin-top: 40px;
+  justify-content: space-between;
+}
+
+.file-cta-button {
   background: #2196f3;
   color: #fff;
   border: none;
@@ -9,25 +15,52 @@
   cursor: pointer;
 }
 
-.upload-btn:disabled {
+.choose-file-section {
+  display: flex;
+  align-items: center;
+  gap: 10px
+}
+
+.file-cta-button:disabled {
   background: #bdbdbd;
   cursor: not-allowed;
 }
 
 .drop-area {
   margin-top: 24px;
-  width: 350px;
+  width: 100%;
   height: 300px;
-  border: 3px dashed red;
+  border: 2px dashed gray;
   border-radius: 6px;
   background: #fff;
+  padding: 1px;
+}
+
+.file-text-content {
+  width: 99%;
+  max-width: 99%;
+  height: 98%;
+  max-height: 98%;
+  display: block;
+}
+
+.file-img-content {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
 }
 
 .download-link {
   display: inline-block;
-  margin-top: 12px;
+  margin-top: 25px;
+  margin-left: 10px;
   font-size: 18px;
   color: #2196f3;
   text-decoration: underline;
   cursor: pointer;
+}
+
+p {
+  margin-block-start: 0.5em;
+  margin-block-end: 0.5em;
 }
