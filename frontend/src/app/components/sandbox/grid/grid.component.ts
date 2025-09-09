@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GridOptions } from 'ag-grid-community';
+import { GridApi, GridOptions, ClientSideRowModelModule, ModuleRegistry, ClientSideRowModelApiModule } from 'ag-grid-community';
 import carData from '../data/car-data.json';
 
 @Component({
@@ -11,8 +11,11 @@ import carData from '../data/car-data.json';
 
 export class GridComponent implements OnInit {
   gridOptions: GridOptions | undefined;
+  modules = [ClientSideRowModelModule];
+  private gridApi: GridApi | null = null;
 
   ngOnInit(): void {
+    ModuleRegistry.registerModules([ClientSideRowModelApiModule]);
     this.gridOptions = {
       columnDefs: [
         { headerName: 'Make', field: 'make', suppressMovable: true },
@@ -28,9 +31,29 @@ export class GridComponent implements OnInit {
         resizable: true,
         sortable: true
       },
-      rowData: carData,
       domLayout: 'autoHeight',
       animateRows: true
     };
+  }
+
+  onGridReady(params: { api: GridApi }) {
+    this.gridApi = params.api;
+    this.simulateGradualLoading()
+  }
+
+  simulateGradualLoading() {
+    let i = 0;
+    const allRows = carData as Record<string, unknown>[];
+    setTimeout(() => {
+      const interval = setInterval(() => {
+        if (this.gridApi && i < allRows.length) {
+          this.gridApi.applyTransaction({ add: [allRows[i]] });
+          i++;
+        }
+        if (i >= allRows.length) {
+          clearInterval(interval);
+        }
+      }, 200);
+    }, 2000);
   }
 }

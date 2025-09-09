@@ -1,6 +1,5 @@
 <h2 class="page-title-centered">Grid page</h2>
-<p class="page-description">This page lets you practice sorting, resizing, reordering columns, and other grid actions</p>
+<p class="page-description">This page lets you practice handling gradual grid data loading, as well as sorting, resizing, reordering columns, and other grid actions</p>
 <div class="custom-grid">
-  <ag-grid-angular [gridOptions]="gridOptions">
-  </ag-grid-angular>
+  <ag-grid-angular [gridOptions]="gridOptions" [modules]="modules" (gridReady)="onGridReady($event)"></ag-grid-angular>
 </div>
