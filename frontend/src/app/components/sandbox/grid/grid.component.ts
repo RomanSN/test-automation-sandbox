@@ -18,7 +18,7 @@ export class GridComponent implements OnInit {
     ModuleRegistry.registerModules([ClientSideRowModelApiModule]);
     this.gridOptions = {
       columnDefs: [
-        { headerName: 'Make', field: 'make', suppressMovable: true },
+        { headerName: 'Make', field: 'make', suppressMovable: true, lockPosition: true },
         { headerName: 'Model', field: 'model' },
         { headerName: 'Country', field: 'country' },
         { headerName: 'Body Type', field: 'bodyType' },
@@ -29,8 +29,9 @@ export class GridComponent implements OnInit {
       defaultColDef: {
         minWidth: 100,
         resizable: true,
-        sortable: true
+        sortable: true,
       },
+      suppressDragLeaveHidesColumns: true,
       domLayout: 'autoHeight',
       animateRows: true
     };

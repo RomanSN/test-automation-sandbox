@@ -17,7 +17,7 @@ export async function loginUser(req, res) {
 
   bcrypt.default.compare(password, user.hash, (err, result) => {
     if (result) {
-      const token = jwt.default.sign({ username: user.username }, SECRET_KEY, {
+      const token = jwt.default.sign({ id: user.id, username: user.username }, SECRET_KEY, {
         expiresIn: "1h",
       });
       res.json({ token, username: user.username });
@@ -66,6 +66,9 @@ export async function deleteUserAndArticles(req, res) {
   const username = req.user.username;
   const user = await userModel.findOne({ username: username });
   if (!user) return res.status(400).json({ message: "User not found" });
+  if (req.user.id !== user.id || user.isAdmin)  { 
+    return res.status(403).json({ message: `"${user.username}" user deletion is forbidden` });
+  }
   try {
     // Delete all articles by user
     await articleModel.deleteMany({ author: username });

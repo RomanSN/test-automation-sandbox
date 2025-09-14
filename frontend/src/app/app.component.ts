@@ -4,6 +4,7 @@ import { AuthService } from './services/auth.service';
 import { ROUTES } from './data/urls/routes.enum';
 import { LOCAL_STORAGE_ITEMS } from './data/local-storage-items.enum';
 import { APP_HEADER_LABELS } from './data/labels/app-header-labels.enum';
+import { getErrorMessage } from './utils/error-handler.util';
 
 @Component({
   selector: 'app-root',
@@ -89,7 +90,8 @@ export class AppComponent implements OnInit {
       alert('Your account and all articles have been deleted.');
       this.logOut();
     } catch (error) {
-      alert(`Failed to delete account. Please try again. Error: ${error}`);
+      const message = getErrorMessage(error);
+      alert(`Failed to delete account. Error: ${message}`);
     }
   }
 }
